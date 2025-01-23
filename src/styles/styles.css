@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(29, 29, 29);
+}
+
+#main-page {
+  display: grid;
+  grid-template-columns: 20% auto;
+}
+
+#main-page div {
+  font-size: 1.5rem;
+  height: 100vh;
+  padding: 2rem;
+}
+
+#nav--page {
+  background-color: rgb(241, 200, 200);
+}
+
+#display--page {
+  background-color: rgb(202, 202, 202);
+}
