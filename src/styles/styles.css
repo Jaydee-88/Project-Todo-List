@@ -19,10 +19,10 @@ body {
   padding: 2rem;
 }
 
-#nav--page {
+#nav--screen {
   background-color: rgb(241, 200, 200);
 }
 
-#display--page {
+#display--screen {
   background-color: rgb(202, 202, 202);
 }
