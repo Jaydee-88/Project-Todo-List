@@ -1,2 +1,3 @@
 import "./styles/styles.css";
-import "./todo-ui"
+import "./styles/left-screen.css";
+import "./todo-ui";

@@ -3,33 +3,67 @@ const mainSection = document.querySelector("#main-page");
 class LeftUI {
   constructor() {
     this.leftNavScreen = document.querySelector("#nav--screen");
-    this.rightContentScreen = document.querySelector("#display--screen");
-    this.contents = ["Logo", "Projects"];
+    this.headingLogo = document.createElement("h1");
+    this.headingProjects = document.createElement("h1");
+    this.headingTeams = document.createElement("h1");
+
+    this.projectHolder = document.createElement("div");
+    this.teamHolder = document.createElement("div");
+
+    this.arrayTodoTest = [
+      "Finish PROJECT!",
+      "Find Job and Track",
+      "Learn Liquid Basics",
+    ];
 
     this.logoAndHeaders();
+    this.leftUIcontents(this.arrayTodoTest);
   }
 
   logoAndHeaders() {
-    const headingLogo = document.createElement("h1");
-    const headingProjects = document.createElement("h1");
-
+    const newTaskButton = document.createElement("button");
+    const newTaskSvg = document.createElement("h3");
+    const newTaskText = document.createElement("h3");
+    newTaskSvg.textContent = "+";
+    newTaskText.textContent = "Add Task";
+    newTaskButton.appendChild(newTaskSvg);
+    newTaskButton.appendChild(newTaskText);
+    newTaskButton.classList.add("newTaskButton");
     // CHANGE TO IMAGE THE LOGO
-    // PUTCLASS
-    headingLogo.textContent = "LOGO";
-    headingProjects.textContent = "Projects";
+    this.headingLogo.textContent = "LOGO";
+    this.headingLogo.classList.add("logo");
 
-    this.leftNavScreen.appendChild(headingLogo);
-    this.leftNavScreen.appendChild(headingProjects);
+    this.leftNavScreen.appendChild(this.headingLogo);
+    this.leftNavScreen.appendChild(newTaskButton);
+
+    this.headingProjects.textContent = "Projects";
+    this.headingTeams.textContent = "Teams";
+
+    this.projectHolder.appendChild(this.headingProjects);
+    this.projectHolder.classList.add("projects");
+
+    this.teamHolder.appendChild(this.headingTeams);
+    this.teamHolder.classList.add("projects");
+
+    this.leftNavScreen.appendChild(this.projectHolder);
+    this.leftNavScreen.appendChild(this.teamHolder);
   }
 
-  leftUIcontents() {
-    return this.contents.forEach((el) => {
-      const lists = document.createElement("h5");
-      // PUTCLASS
-      heading.textContent = el;
+  // Fix the issue inside and outside the BUTTON LIST it should be clickable.
+  leftUIcontents(todosArray) {
+    const listsOfTodosHolder = document.createElement("ul");
+    listsOfTodosHolder.classList.add("projects-ul");
 
-      this.leftNavScreen.appendChild(lists);
-    });
+    for (let i = 0; i < todosArray.length; i++) {
+      const todosLists = document.createElement("li");
+      const buttonProjects = document.createElement("button");
+      todosLists.classList.add("list-items");
+      buttonProjects.textContent = todosArray[i];
+      todosLists.appendChild(buttonProjects);
+      listsOfTodosHolder.appendChild(todosLists);
+    }
+
+    this.projectHolder.appendChild(listsOfTodosHolder);
   }
 
   doStuff() {
@@ -48,6 +82,10 @@ class LeftUI {
     return;
   }
 }
-class RightUI {}
+class RightUI {
+  constructor() {
+    this.rightContentScreen = document.querySelector("#display--screen");
+  }
+}
 
 new LeftUI();

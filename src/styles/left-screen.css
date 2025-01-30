@@ -1,0 +1,56 @@
+#nav--screen {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: rgb(241, 200, 200);
+  padding: 2rem;
+  height: 100vh;
+}
+
+.logo {
+  margin-bottom: 2rem;
+}
+
+.newTaskButton {
+  display: flex;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+}
+
+.newTaskButton h3 {
+  color: red;
+}
+
+.projects {
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.projects-ul {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.list-items {
+  padding: 0.3rem;
+  font-size: 1.2rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.projects-ul li button {
+  background-color: inherit;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.list-items:hover {
+  background-color: red;
+}
