@@ -85,6 +85,24 @@ class LeftUI {
 class RightUI {
   constructor() {
     this.rightContentScreen = document.querySelector("#display--screen");
+    this.projectTasksTest = [
+      "Wakeup Early",
+      "Eat",
+      "Workout",
+      "Study",
+      "Sleep",
+    ];
+
+    this.dateDisplay = document.createElement("h1");
+    this.titleDisplay = document.createElement("h1");
+    this.descriptionDisplay = document.createElement("p");
+  }
+
+  renderProject() {
+    this.dateDisplay.textContent = "Today";
+    this.titleDisplay.textContent = "Title";
+    this.descriptionDisplay.textContent =
+      "The description is here try to find a way for users to edit this and make a button besides the title to edit";
   }
 }
 

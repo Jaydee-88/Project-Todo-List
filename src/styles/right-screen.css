@@ -1,0 +1,7 @@
+#display--screen {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(202, 202, 202);
+  padding: 2rem;
+  height: 100vh;
+}
