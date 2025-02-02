@@ -5,3 +5,30 @@
   padding: 2rem;
   height: 100vh;
 }
+
+/* Global */
+
+label {
+  display: flex;
+  align-items: center;
+}
+
+.input--ui {
+  transform: scale(1.5);
+  margin-right: 0.8rem;
+}
+
+/* ******* */
+
+.date--ui {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.title--ui {
+  color: rgb(0, 162, 255);
+}
+
+.project-section--ui {
+  margin-top: 6rem;
+}

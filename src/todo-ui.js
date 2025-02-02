@@ -86,24 +86,63 @@ class RightUI {
   constructor() {
     this.rightContentScreen = document.querySelector("#display--screen");
     this.projectTasksTest = [
-      "Wakeup Early",
-      "Eat",
-      "Workout",
-      "Study",
-      "Sleep",
+      "Preperation for Powerpoint",
+      "Study SEO in-depth",
+      "Workout Routine",
+      "Study Plan",
     ];
+    // make a function when the new task is press put it in here
+    this.projectTasksArrayToRender = [];
 
     this.dateDisplay = document.createElement("h1");
     this.titleDisplay = document.createElement("h1");
     this.descriptionDisplay = document.createElement("p");
+
+    this.renderHeaderDisplay();
+    this.renderProjectDisplay();
   }
 
-  renderProject() {
+  renderHeaderDisplay() {
     this.dateDisplay.textContent = "Today";
     this.titleDisplay.textContent = "Title";
     this.descriptionDisplay.textContent =
-      "The description is here try to find a way for users to edit this and make a button besides the title to edit";
+      "The description is here try to find a way for users to edit this and make a button besides the title to edit.";
+    this.dateDisplay.classList.add("date--ui");
+    this.titleDisplay.classList.add("title--ui");
+    this.descriptionDisplay.classList.add("description--ui");
+
+    this.rightContentScreen.appendChild(this.dateDisplay);
+    this.rightContentScreen.appendChild(this.titleDisplay);
+    this.rightContentScreen.appendChild(this.descriptionDisplay);
+  }
+
+  renderProjectDisplay() {
+    this.projectSection = document.createElement("div");
+    this.projectTitle = document.createElement("h3");
+    this.projectSection.classList.add("project-section--ui");
+    this.projectTitle.classList.add("project-title--ui");
+
+    this.projectTitle.textContent = "Sildes and Notes";
+    this.projectSection.appendChild(this.projectTitle);
+
+    // Checkbox need to use for loop and organize
+    const checkbox = document.createElement("input");
+    checkbox.classList.add("input--ui");
+    checkbox.type = "checkbox";
+    checkbox.name = "dynamicCheckbox";
+    checkbox.value = "yes";
+    this.rightContentScreen.appendChild(checkbox);
+
+    const label = document.createElement("label");
+    const labelText = document.createElement("p");
+    labelText.textContent = "Option 1";
+
+    label.appendChild(checkbox);
+    label.appendChild(labelText);
+    this.projectSection.appendChild(label);
+    this.rightContentScreen.appendChild(this.projectSection);
   }
 }
 
 new LeftUI();
+new RightUI();
