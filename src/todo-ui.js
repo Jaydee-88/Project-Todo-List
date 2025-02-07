@@ -1,7 +1,7 @@
 const mainSection = document.querySelector("#main-page");
 
 class LeftUI {
-  constructor() {
+  constructor(dataTitle) {
     this.leftNavScreen = document.querySelector("#nav--screen");
     this.headingLogo = document.createElement("h1");
     this.headingProjects = document.createElement("h1");
@@ -22,6 +22,7 @@ class LeftUI {
 
   logoAndHeaders() {
     const newTaskButton = document.createElement("button");
+    newTaskButton.setAttribute("data-custom", "addNewTask");
     const newTaskSvg = document.createElement("h3");
     const newTaskText = document.createElement("h3");
     newTaskSvg.textContent = "+";
@@ -49,7 +50,7 @@ class LeftUI {
     this.leftNavScreen.appendChild(this.teamHolder);
   }
 
-  // Fix the issue inside and outside the BUTTON LIST it should be clickable.
+  // Fix the issue inside and outside the BUTTON LIST it should be clickable. they should be merge. something related to bubbling.
   leftUIcontents(todosArray) {
     const listsOfTodosHolder = document.createElement("ul");
     listsOfTodosHolder.classList.add("projects-ul");
@@ -65,25 +66,10 @@ class LeftUI {
 
     this.projectHolder.appendChild(listsOfTodosHolder);
   }
-
-  doStuff() {
-    const text = document.createElement("h1");
-    const text2 = document.createElement("h1");
-    const div = document.createElement("div");
-
-    text.textContent = "test";
-    text2.textContent = "test";
-    this.leftNavScreen.appendChild(text);
-    this.leftNavScreen.appendChild(text2);
-  }
-
-  get test() {
-    console.log("hello");
-    return;
-  }
 }
+
 class RightUI {
-  constructor() {
+  constructor(data) {
     this.rightContentScreen = document.querySelector("#display--screen");
     this.projectTasksTest = [
       "Preperation for Powerpoint",
@@ -102,7 +88,7 @@ class RightUI {
     this.renderProjectDisplay();
   }
 
-  renderHeaderDisplay() {
+  renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
     this.dateDisplay.textContent = "Today";
     this.titleDisplay.textContent = "Title";
     this.descriptionDisplay.textContent =
@@ -116,7 +102,7 @@ class RightUI {
     this.rightContentScreen.appendChild(this.descriptionDisplay);
   }
 
-  renderProjectDisplay() {
+  renderProjectDisplay(dataSubTitle, dataTask) {
     this.projectSection = document.createElement("div");
     this.projectTitle = document.createElement("h3");
     this.projectSection.classList.add("project-section--ui");
@@ -126,22 +112,28 @@ class RightUI {
     this.projectSection.appendChild(this.projectTitle);
 
     // Checkbox need to use for loop and organize
-    const checkbox = document.createElement("input");
-    checkbox.classList.add("input--ui");
-    checkbox.type = "checkbox";
-    checkbox.name = "dynamicCheckbox";
-    checkbox.value = "yes";
-    this.rightContentScreen.appendChild(checkbox);
+    const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
+    addTaskButton.addEventListener("click", () => {
+      const checkbox = document.createElement("input");
+      checkbox.classList.add("input--ui");
+      checkbox.type = "checkbox";
+      checkbox.name = "dynamicCheckbox";
+      checkbox.value = "yes";
+      this.rightContentScreen.appendChild(checkbox);
 
-    const label = document.createElement("label");
-    const labelText = document.createElement("p");
-    labelText.textContent = "Option 1";
+      const label = document.createElement("label");
+      const labelText = document.createElement("p");
+      labelText.textContent = "Option 1"; // CHANGE TO dataTask
 
-    label.appendChild(checkbox);
-    label.appendChild(labelText);
-    this.projectSection.appendChild(label);
+      label.appendChild(checkbox);
+      label.appendChild(labelText);
+      this.projectSection.appendChild(label);
+    });
+
     this.rightContentScreen.appendChild(this.projectSection);
   }
+
+  modalDisplay(dataTask) {}
 }
 
 new LeftUI();
