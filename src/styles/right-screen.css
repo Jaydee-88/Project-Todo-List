@@ -3,6 +3,7 @@
   flex-direction: column;
   background-color: rgb(202, 202, 202);
   padding: 2rem;
+  overflow-y: auto;
   height: 100vh;
 }
 
@@ -30,5 +31,12 @@ label {
 }
 
 .project-section--ui {
-  margin-top: 6rem;
+  margin-top: 5rem;
+}
+
+.tasks-display--ui {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

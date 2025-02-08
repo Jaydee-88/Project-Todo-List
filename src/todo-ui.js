@@ -30,6 +30,7 @@ class LeftUI {
     newTaskButton.appendChild(newTaskSvg);
     newTaskButton.appendChild(newTaskText);
     newTaskButton.classList.add("newTaskButton");
+
     // CHANGE TO IMAGE THE LOGO
     this.headingLogo.textContent = "LOGO";
     this.headingLogo.classList.add("logo");
@@ -66,10 +67,73 @@ class LeftUI {
 
     this.projectHolder.appendChild(listsOfTodosHolder);
   }
+
+  modalDisplay(dataTask) {
+    const form = document.createElement("form");
+    form.id = "formContainer;";
+    form.className = "form";
+    form.action = "";
+
+    // Create title options
+    const titleOptionsDiv = document.createElement("div");
+    titleOptionsDiv.className = "titleOptions";
+
+    const titleLabel = document.createElement("label");
+    titleLabel.textContent = "Title";
+    const titleInput = document.createElement("input");
+    titleInput.type = "text"; // Changed to "text" for title input
+    titleInput.name = "title";
+    titleInput.id = "title";
+    titleInput.required = true;
+
+    titleOptionsDiv.appendChild(titleLabel);
+    titleOptionsDiv.appendChild(titleInput);
+    form.appendChild(titleOptionsDiv);
+
+    // Create tasks section
+    const tasksDiv = document.createElement("div");
+    tasksDiv.className = "tasks";
+
+    const tasksLabel = document.createElement("label");
+    tasksLabel.textContent = "Task";
+    const tasksInput = document.createElement("input");
+    tasksInput.type = "text"; // Changed to "text" for task input
+    tasksInput.name = "task";
+    tasksInput.id = "task";
+    tasksInput.required = true;
+
+    tasksDiv.appendChild(tasksLabel);
+    tasksDiv.appendChild(tasksInput);
+    form.appendChild(tasksDiv);
+
+    // Create submit button
+    const submitButton = document.createElement("input");
+    submitButton.className = "formSubmit";
+    submitButton.type = "submit";
+    submitButton.value = "Submit";
+
+    form.appendChild(submitButton);
+    // Append the form to the container
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Here, you can make changes based on input values
+      const title = titleInput.value;
+      const task = tasksInput.value;
+      console.log(`Title: ${title}, Task: ${task}`);
+
+      // Close the window
+      form.classList.add("hidden");
+    });
+
+    document.querySelector("#main-page").appendChild(form);
+  }
 }
 
-class RightUI {
+class RightUI extends LeftUI {
   constructor(data) {
+    super(data);
     this.rightContentScreen = document.querySelector("#display--screen");
     this.projectTasksTest = [
       "Preperation for Powerpoint",
@@ -83,6 +147,7 @@ class RightUI {
     this.dateDisplay = document.createElement("h1");
     this.titleDisplay = document.createElement("h1");
     this.descriptionDisplay = document.createElement("p");
+    this.tasksDisplay = document.createElement("div");
 
     this.renderHeaderDisplay();
     this.renderProjectDisplay();
@@ -107,6 +172,7 @@ class RightUI {
     this.projectTitle = document.createElement("h3");
     this.projectSection.classList.add("project-section--ui");
     this.projectTitle.classList.add("project-title--ui");
+    this.tasksDisplay.classList.add("tasks-display--ui");
 
     this.projectTitle.textContent = "Sildes and Notes";
     this.projectSection.appendChild(this.projectTitle);
@@ -114,6 +180,9 @@ class RightUI {
     // Checkbox need to use for loop and organize
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
+      // Play with this modal. when click user and submit changes
+      this.modalDisplay();
+
       const checkbox = document.createElement("input");
       checkbox.classList.add("input--ui");
       checkbox.type = "checkbox";
@@ -127,14 +196,12 @@ class RightUI {
 
       label.appendChild(checkbox);
       label.appendChild(labelText);
-      this.projectSection.appendChild(label);
+      this.tasksDisplay.appendChild(label);
+      this.projectSection.appendChild(this.tasksDisplay);
     });
 
     this.rightContentScreen.appendChild(this.projectSection);
   }
-
-  modalDisplay(dataTask) {}
 }
 
-new LeftUI();
 new RightUI();
