@@ -67,8 +67,97 @@ class LeftUI {
 
     this.projectHolder.appendChild(listsOfTodosHolder);
   }
+}
 
-  modalDisplay(dataTask) {
+class RightUI extends LeftUI {
+  constructor(data) {
+    super(data);
+    this.rightContentScreen = document.querySelector("#display--screen");
+    this.projectTasksTest = [
+      "Preperation for Powerpoint",
+      "Study SEO in-depth",
+      "Workout Routine",
+      "Study Plan",
+    ];
+    // make a function when the new task is press put it in here
+    this.projectTasksArrayToRender = [];
+
+    this.dateDisplay = document.createElement("h1");
+    this.titleDisplay = document.createElement("h1");
+    this.descriptionDisplay = document.createElement("p");
+    this.tasksDisplay = document.createElement("div");
+
+    this.renderHeaderDisplay();
+    this.renderProjectDisplay();
+  }
+
+  renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
+    this.dateDisplay.textContent = "Today";
+    this.titleDisplay.textContent = "Title";
+    this.descriptionDisplay.textContent =
+      "The description is here try to find a way for users to edit this and make a button besides the title to edit.";
+    this.dateDisplay.classList.add("date--ui");
+    this.titleDisplay.classList.add("title--ui");
+    this.descriptionDisplay.classList.add("description--ui");
+
+    this.rightContentScreen.appendChild(this.dateDisplay);
+    this.rightContentScreen.appendChild(this.titleDisplay);
+    this.rightContentScreen.appendChild(this.descriptionDisplay);
+  }
+
+  renderProjectDisplay(dataSubTitle, dataTask) {
+    this.projectSection = document.createElement("div");
+    this.projectTitle = document.createElement("h3");
+    this.projectSection.classList.add("project-section--ui");
+    this.projectTitle.classList.add("project-title--ui");
+    this.tasksDisplay.classList.add("tasks-display--ui");
+
+    this.projectTasksTest.forEach((el) => {
+      console.log(el);
+      const projectDisplaySection = document.createElement("div");
+      const projectDisplayText = document.createElement("h3");
+
+      projectDisplayText.textContent = el;
+      projectDisplaySection.appendChild(projectDisplayText);
+
+      this.projectTitle.textContent = el;
+      this.projectSection.appendChild(this.projectTitle);
+      this.rightContentScreen.appendChild(projectDisplaySection);
+    });
+
+    // Checkbox need to use for loop and organize
+    // if projectSectionUi[i] exist, append to that div.
+    const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
+    addTaskButton.addEventListener("click", () => {
+      // Play with this modal. when click user and submit changes
+      // this.modalDisplay(
+      //   this.rightContentScreen,
+      //   this.projectSection,
+      //   this.tasksDisplay
+      // );
+
+      const checkbox = document.createElement("input");
+      checkbox.classList.add("input--ui");
+      checkbox.type = "checkbox";
+      checkbox.name = "dynamicCheckbox";
+      checkbox.value = "yes";
+      this.rightContentScreen.appendChild(checkbox); //CHANGE
+
+      const label = document.createElement("label");
+      const labelText = document.createElement("p");
+      labelText.textContent = "Option"; //
+
+      label.appendChild(checkbox);
+      label.appendChild(labelText);
+      this.tasksDisplay.appendChild(label);
+      this.projectSection.appendChild(this.tasksDisplay);
+
+      this.rightContentScreen.appendChild(this.projectSection); //CHANGE
+    });
+  }
+
+  // the modal should have 3 components. To create a Title(append to array), select a title, and add a task.
+  modalDisplay(rightScreen, projectSection, taskDisplay) {
     const form = document.createElement("form");
     form.id = "formContainer;";
     form.className = "form";
@@ -121,86 +210,12 @@ class LeftUI {
       // Here, you can make changes based on input values
       const title = titleInput.value;
       const task = tasksInput.value;
-      console.log(`Title: ${title}, Task: ${task}`);
 
       // Close the window
       form.classList.add("hidden");
     });
 
     document.querySelector("#main-page").appendChild(form);
-  }
-}
-
-class RightUI extends LeftUI {
-  constructor(data) {
-    super(data);
-    this.rightContentScreen = document.querySelector("#display--screen");
-    this.projectTasksTest = [
-      "Preperation for Powerpoint",
-      "Study SEO in-depth",
-      "Workout Routine",
-      "Study Plan",
-    ];
-    // make a function when the new task is press put it in here
-    this.projectTasksArrayToRender = [];
-
-    this.dateDisplay = document.createElement("h1");
-    this.titleDisplay = document.createElement("h1");
-    this.descriptionDisplay = document.createElement("p");
-    this.tasksDisplay = document.createElement("div");
-
-    this.renderHeaderDisplay();
-    this.renderProjectDisplay();
-  }
-
-  renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
-    this.dateDisplay.textContent = "Today";
-    this.titleDisplay.textContent = "Title";
-    this.descriptionDisplay.textContent =
-      "The description is here try to find a way for users to edit this and make a button besides the title to edit.";
-    this.dateDisplay.classList.add("date--ui");
-    this.titleDisplay.classList.add("title--ui");
-    this.descriptionDisplay.classList.add("description--ui");
-
-    this.rightContentScreen.appendChild(this.dateDisplay);
-    this.rightContentScreen.appendChild(this.titleDisplay);
-    this.rightContentScreen.appendChild(this.descriptionDisplay);
-  }
-
-  renderProjectDisplay(dataSubTitle, dataTask) {
-    this.projectSection = document.createElement("div");
-    this.projectTitle = document.createElement("h3");
-    this.projectSection.classList.add("project-section--ui");
-    this.projectTitle.classList.add("project-title--ui");
-    this.tasksDisplay.classList.add("tasks-display--ui");
-
-    this.projectTitle.textContent = "Sildes and Notes";
-    this.projectSection.appendChild(this.projectTitle);
-
-    // Checkbox need to use for loop and organize
-    const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
-    addTaskButton.addEventListener("click", () => {
-      // Play with this modal. when click user and submit changes
-      this.modalDisplay();
-
-      const checkbox = document.createElement("input");
-      checkbox.classList.add("input--ui");
-      checkbox.type = "checkbox";
-      checkbox.name = "dynamicCheckbox";
-      checkbox.value = "yes";
-      this.rightContentScreen.appendChild(checkbox);
-
-      const label = document.createElement("label");
-      const labelText = document.createElement("p");
-      labelText.textContent = "Option 1"; // CHANGE TO dataTask
-
-      label.appendChild(checkbox);
-      label.appendChild(labelText);
-      this.tasksDisplay.appendChild(label);
-      this.projectSection.appendChild(this.tasksDisplay);
-    });
-
-    this.rightContentScreen.appendChild(this.projectSection);
   }
 }
 

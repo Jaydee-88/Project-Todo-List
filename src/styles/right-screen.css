@@ -30,8 +30,12 @@ label {
   color: rgb(0, 162, 255);
 }
 
+.description--ui {
+  margin-bottom: 5rem;
+}
+
 .project-section--ui {
-  margin-top: 5rem;
+  margin: 2rem 0;
 }
 
 .tasks-display--ui {
