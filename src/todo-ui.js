@@ -6,11 +6,14 @@ class LeftUI {
     this.headingLogo = document.createElement("h1");
     this.headingProjects = document.createElement("h1");
     this.headingTeams = document.createElement("h1");
+    this.default = document.createElement("div");
+    this.default.setAttribute("data-custom", "default--ui");
 
     this.projectHolder = document.createElement("div");
     this.teamHolder = document.createElement("div");
 
     this.arrayTodoTest = [
+      "Default",
       "Finish PROJECT!",
       "Find Job and Track",
       "Learn Liquid Basics",
@@ -79,6 +82,24 @@ class RightUI extends LeftUI {
       "Workout Routine",
       "Study Plan",
     ];
+    this.projectTasksTest2 = [
+      {
+        title: "Preperation for Powerpoint",
+        tasks: [],
+      },
+      {
+        title: "Study SEO in-depth",
+        tasks: [],
+      },
+      {
+        title: "Workout Routine",
+        tasks: [],
+      },
+      {
+        title: "Study Plan",
+        tasks: [],
+      },
+    ];
     // make a function when the new task is press put it in here
     this.projectTasksArrayToRender = [];
 
@@ -112,16 +133,15 @@ class RightUI extends LeftUI {
     this.projectTitle.classList.add("project-title--ui");
     this.tasksDisplay.classList.add("tasks-display--ui");
 
-    this.projectTasksTest.forEach((el) => {
-      console.log(el);
+    this.projectTasksTest2.forEach((el) => {
       const projectDisplaySection = document.createElement("div");
       const projectDisplayText = document.createElement("h3");
+      projectDisplaySection.classList.add("project-section--ui");
 
-      projectDisplayText.textContent = el;
+      projectDisplayText.textContent = el.title;
       projectDisplaySection.appendChild(projectDisplayText);
+      projectDisplaySection.setAttribute("data-custom", "task--title");
 
-      this.projectTitle.textContent = el;
-      this.projectSection.appendChild(this.projectTitle);
       this.rightContentScreen.appendChild(projectDisplaySection);
     });
 
@@ -129,6 +149,9 @@ class RightUI extends LeftUI {
     // if projectSectionUi[i] exist, append to that div.
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
+      const projectDiv = document.querySelectorAll(
+        '[data-custom="task--title"]'
+      );
       // Play with this modal. when click user and submit changes
       // this.modalDisplay(
       //   this.rightContentScreen,
@@ -146,13 +169,22 @@ class RightUI extends LeftUI {
       const label = document.createElement("label");
       const labelText = document.createElement("p");
       labelText.textContent = "Option"; //
-
+      this.projectTasksTest2[0].tasks.push("Option"); // NEED TO PUT IN MODAL
       label.appendChild(checkbox);
       label.appendChild(labelText);
       this.tasksDisplay.appendChild(label);
-      this.projectSection.appendChild(this.tasksDisplay);
 
-      this.rightContentScreen.appendChild(this.projectSection); //CHANGE
+      projectDiv.forEach((div) => {
+        const h3 = div.querySelector("h3");
+        if (h3 && h3.textContent === "Preperation for Powerpoint") {
+          console.log(div);
+          div.appendChild(this.tasksDisplay); //CHANGE
+        }
+      });
+      this.projectTasksTest2.forEach((el) => {
+        if (el.title === "Preperation for Powerpoint") {
+        }
+      });
     });
   }
 
@@ -218,5 +250,7 @@ class RightUI extends LeftUI {
     document.querySelector("#main-page").appendChild(form);
   }
 }
+
+class DefaultScreenUI {}
 
 new RightUI();

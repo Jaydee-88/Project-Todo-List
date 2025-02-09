@@ -36,11 +36,12 @@ label {
 
 .project-section--ui {
   margin: 2rem 0;
+  margin-bottom: 0;
 }
 
 .tasks-display--ui {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
