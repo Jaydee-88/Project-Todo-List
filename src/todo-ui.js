@@ -141,6 +141,17 @@ class RightUI extends LeftUI {
 
       this.rightContentScreen.appendChild(projectDisplaySection);
     });
+
+    // Display Task Rule
+    const projectDiv = document.querySelectorAll('[data-custom="task--title"]');
+    projectDiv.forEach((div) => {
+      const h3 = div.querySelector("h3");
+      // MARKER
+      if (h3 && h3.textContent === dataSubTitle) {
+        console.log(div);
+        div.appendChild(this.tasksDisplay);
+      }
+    });
   }
 
   // the modal should have 3 components. To create a Title(append to array), select a title, and add a task.
@@ -189,27 +200,13 @@ class RightUI extends LeftUI {
     submitButton.value = "Submit";
 
     form.appendChild(submitButton);
+    form.classList.add("hidden");
     // Append the form to the container
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevent default form submission
-
-      // Here, you can make changes based on input values
-      const title = titleInput.value;
-      const task = tasksInput.value;
-
-      // Close the window
-      form.classList.add("hidden");
-    });
-
-    document.querySelector("#main-page").appendChild(form);
-
-    // Add Task Button
+    // Add Task
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
-      const projectDiv = document.querySelectorAll(
-        '[data-custom="task--title"]'
-      );
+      form.classList.remove("hidden");
 
       // Creating Checkbox
       const checkbox = document.createElement("input");
@@ -221,21 +218,26 @@ class RightUI extends LeftUI {
       const label = document.createElement("label");
       const labelText = document.createElement("p");
       // MARKER
-      labelText.textContent = "Option"; //
-      this.projectTasksTest2[0].tasks.push("Option"); // NEED TO PUT IN MODAL
+      labelText.textContent = 'dataTask'; //
+      this.projectTasksTest2[0].tasks.push('dataTask'); // NEED TO PUT IN MODAL
       label.appendChild(checkbox);
       label.appendChild(labelText);
       this.tasksDisplay.appendChild(label);
+    });
 
-      // Display Task
-      projectDiv.forEach((div) => {
-        const h3 = div.querySelector("h3");
-        // MARKER
-        if (h3 && h3.textContent === "Study SEO in-depth") {
-          console.log(div);
-          div.appendChild(this.tasksDisplay);
-        }
-      });
+    document.querySelector("#main-page").appendChild(form);
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Here, you can make changes based on input values
+      const title = titleInput.value;
+      const task = tasksInput.value;
+
+      // Close the window
+      form.classList.add("hidden");
+
+      return title, task;
     });
   }
 }
