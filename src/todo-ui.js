@@ -76,12 +76,7 @@ class RightUI extends LeftUI {
   constructor(data) {
     super(data);
     this.rightContentScreen = document.querySelector("#display--screen");
-    this.projectTasksTest = [
-      "Preperation for Powerpoint",
-      "Study SEO in-depth",
-      "Workout Routine",
-      "Study Plan",
-    ];
+
     this.projectTasksTest2 = [
       {
         title: "Preperation for Powerpoint",
@@ -110,6 +105,7 @@ class RightUI extends LeftUI {
 
     this.renderHeaderDisplay();
     this.renderProjectDisplay();
+    this.modalDisplay();
   }
 
   renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
@@ -133,6 +129,7 @@ class RightUI extends LeftUI {
     this.projectTitle.classList.add("project-title--ui");
     this.tasksDisplay.classList.add("tasks-display--ui");
 
+    // Display Sub-Title
     this.projectTasksTest2.forEach((el) => {
       const projectDisplaySection = document.createElement("div");
       const projectDisplayText = document.createElement("h3");
@@ -143,48 +140,6 @@ class RightUI extends LeftUI {
       projectDisplaySection.setAttribute("data-custom", "task--title");
 
       this.rightContentScreen.appendChild(projectDisplaySection);
-    });
-
-    // Checkbox need to use for loop and organize
-    // if projectSectionUi[i] exist, append to that div.
-    const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
-    addTaskButton.addEventListener("click", () => {
-      const projectDiv = document.querySelectorAll(
-        '[data-custom="task--title"]'
-      );
-      // Play with this modal. when click user and submit changes
-      // this.modalDisplay(
-      //   this.rightContentScreen,
-      //   this.projectSection,
-      //   this.tasksDisplay
-      // );
-
-      const checkbox = document.createElement("input");
-      checkbox.classList.add("input--ui");
-      checkbox.type = "checkbox";
-      checkbox.name = "dynamicCheckbox";
-      checkbox.value = "yes";
-      this.rightContentScreen.appendChild(checkbox); //CHANGE
-
-      const label = document.createElement("label");
-      const labelText = document.createElement("p");
-      labelText.textContent = "Option"; //
-      this.projectTasksTest2[0].tasks.push("Option"); // NEED TO PUT IN MODAL
-      label.appendChild(checkbox);
-      label.appendChild(labelText);
-      this.tasksDisplay.appendChild(label);
-
-      projectDiv.forEach((div) => {
-        const h3 = div.querySelector("h3");
-        if (h3 && h3.textContent === "Preperation for Powerpoint") {
-          console.log(div);
-          div.appendChild(this.tasksDisplay); //CHANGE
-        }
-      });
-      this.projectTasksTest2.forEach((el) => {
-        if (el.title === "Preperation for Powerpoint") {
-        }
-      });
     });
   }
 
@@ -248,6 +203,40 @@ class RightUI extends LeftUI {
     });
 
     document.querySelector("#main-page").appendChild(form);
+
+    // Add Task Button
+    const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
+    addTaskButton.addEventListener("click", () => {
+      const projectDiv = document.querySelectorAll(
+        '[data-custom="task--title"]'
+      );
+
+      // Creating Checkbox
+      const checkbox = document.createElement("input");
+      checkbox.classList.add("input--ui");
+      checkbox.type = "checkbox";
+      checkbox.name = "dynamicCheckbox";
+      checkbox.value = "yes";
+      this.rightContentScreen.appendChild(checkbox); //CHANGE
+      const label = document.createElement("label");
+      const labelText = document.createElement("p");
+      // MARKER
+      labelText.textContent = "Option"; //
+      this.projectTasksTest2[0].tasks.push("Option"); // NEED TO PUT IN MODAL
+      label.appendChild(checkbox);
+      label.appendChild(labelText);
+      this.tasksDisplay.appendChild(label);
+
+      // Display Task
+      projectDiv.forEach((div) => {
+        const h3 = div.querySelector("h3");
+        // MARKER
+        if (h3 && h3.textContent === "Study SEO in-depth") {
+          console.log(div);
+          div.appendChild(this.tasksDisplay);
+        }
+      });
+    });
   }
 }
 
