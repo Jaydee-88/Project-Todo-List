@@ -72,7 +72,7 @@ class LeftUI {
   }
 }
 
-class RightUI extends LeftUI {
+export class RightUI extends LeftUI {
   constructor(data) {
     super(data);
     this.rightContentScreen = document.querySelector("#display--screen");
@@ -149,7 +149,7 @@ class RightUI extends LeftUI {
       projectDiv.forEach((div) => {
         const h3 = div.querySelector("h3");
         // MARKER
-        if (h3 && h3.textContent === "Preperation for Powerpoint") {
+        if (h3 && h3.textContent === "Study SEO in-depth") {
           console.log(div);
           console.log("hello");
 
@@ -257,5 +257,3 @@ class RightUI extends LeftUI {
 }
 
 class DefaultScreenUI {}
-
-new RightUI();
