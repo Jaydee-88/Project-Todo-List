@@ -77,22 +77,22 @@ export class RightUI extends LeftUI {
     super(data);
     this.rightContentScreen = document.querySelector("#display--screen");
 
-    this.projectTasksTest2 = [
+    this.projectDisplaySubTitle = [
       {
         title: "Preperation for Powerpoint",
-        tasks: [],
+        tasks: ["Make 3 slides for SEO"],
       },
       {
         title: "Study SEO in-depth",
-        tasks: [],
+        tasks: ["Learn the fundamentals"],
       },
       {
         title: "Workout Routine",
-        tasks: [],
+        tasks: ["Make a 7 day weekplan with 2 rest days"],
       },
       {
         title: "Study Plan",
-        tasks: [],
+        tasks: ["Learn IELTS", "Learn Python"],
       },
     ];
     // make a function when the new task is press put it in here
@@ -104,8 +104,13 @@ export class RightUI extends LeftUI {
     this.tasksDisplay = document.createElement("div");
     // this.formResult = this.modalDisplay();
 
+    this.projectSections = document.createElement("div");
+    this.projectSections.setAttribute("data-custom", "project-task");
+    this.projectSections.classList.add("project-task");
+
     this.renderHeaderDisplay();
     this.renderProjectDisplay();
+    this.renderTitleAndTasks();
   }
 
   renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
@@ -129,38 +134,63 @@ export class RightUI extends LeftUI {
     this.projectTitle.classList.add("project-title--ui");
     this.tasksDisplay.classList.add("tasks-display--ui");
 
-    // Display Sub-Title
-    this.projectTasksTest2.forEach((el) => {
+    // Display Sub-Title and tasks
+    this.projectDisplaySubTitle.forEach((el) => {
       const projectDisplaySection = document.createElement("div");
-      const projectDisplayText = document.createElement("h3");
+      const projectDisplayTitle = document.createElement("h3");
+      const projectDisplayTaskHolder = document.createElement("div");
+      const projectDisplayTasks = document.createElement("p");
+
+      projectDisplayTaskHolder.classList.add("tasks-display--ui");
+
       projectDisplaySection.classList.add("project-section--ui");
 
-      projectDisplayText.textContent = el.title;
-      projectDisplaySection.appendChild(projectDisplayText);
+      projectDisplayTitle.textContent = el.title;
+      projectDisplayTasks.textContent = el.tasks;
+
+      projectDisplaySection.appendChild(projectDisplayTitle);
+      projectDisplayTaskHolder.appendChild(projectDisplayTasks);
+      projectDisplaySection.appendChild(projectDisplayTaskHolder);
+
       projectDisplaySection.setAttribute("data-custom", "task--title");
 
-      this.rightContentScreen.appendChild(projectDisplaySection);
+      this.projectSections.appendChild(projectDisplaySection);
     });
 
     // Task Rule
     const projectDiv = document.querySelectorAll('[data-custom="task--title"]');
+
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
-      projectDiv.forEach((div) => {
-        const h3 = div.querySelector("h3");
-        // MARKER
-        if (h3 && h3.textContent === "Study SEO in-depth") {
-          console.log(div);
-          console.log("hello");
+      const testClick = document.querySelector(".project-task");
+      console.log(testClick);
 
-          const textElement = document.createElement("p");
-          textElement.textContent = "Option";
+      testClick.innerHTML = "";
 
-          this.tasksDisplay.appendChild(textElement);
-          div.appendChild(this.tasksDisplay);
-        }
-      });
+      // this.projectDisplaySubTitle.forEach((el) => {
+      //   if (el.title === "Study Plan") {
+      //     el.tasks.push("Learn Larvel");
+
+      //     this.renderTitleAndTasks();
+      //   }
+      // });
+
+      // projectDiv.forEach((div) => {
+      //   const h3 = div.querySelector("h3");
+      //   const tasksHolder = div.querySelector("div");
+      //   // MARKER
+      //   if (h3 && h3.textContent === "Study SEO in-depth") {
+      //     if (tasksHolder) {
+      //       console.log(this.projectDisplaySubTitle);
+      //     }
+      //     console.log("hello");
+      //   }
+      // });
     });
+  }
+
+  renderTitleAndTasks() {
+    this.rightContentScreen.appendChild(this.projectSections);
   }
 
   // the modal should have 3 components. To create a Title(append to array), select a title, and add a task.
@@ -228,7 +258,7 @@ export class RightUI extends LeftUI {
   //     const labelText = document.createElement("p");
   //     // MARKER
   //     labelText.textContent = "dataTask"; //
-  //     this.projectTasksTest2[0].tasks.push("dataTask"); // NEED TO PUT IN MODAL
+  //     this.projectDisplaySubTitle[0].tasks.push("dataTask"); // NEED TO PUT IN MODAL
   //     label.appendChild(checkbox);
   //     label.appendChild(labelText);
   //     this.tasksDisplay.appendChild(label);
