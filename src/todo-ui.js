@@ -139,33 +139,51 @@ export class RightUI extends LeftUI {
       const projectDisplaySection = document.createElement("div");
       const projectDisplayTitle = document.createElement("h3");
       const projectDisplayTaskHolder = document.createElement("div");
-      const projectDisplayTasks = document.createElement("p");
 
       projectDisplayTaskHolder.classList.add("tasks-display--ui");
 
       projectDisplaySection.classList.add("project-section--ui");
 
       projectDisplayTitle.textContent = el.title;
-      projectDisplayTasks.textContent = el.tasks;
+
+      el.tasks.forEach((tasks) => {
+        const projectDisplayTasks = document.createElement("p");
+        projectDisplayTasks.textContent = tasks;
+        // projectDisplayTaskHolder.appendChild(projectDisplayTasks);
+
+        const checkbox = document.createElement("input");
+        checkbox.classList.add("input--ui");
+        checkbox.type = "checkbox";
+
+        const label = document.createElement("label");
+        const labelText = document.createElement("p");
+        // // MARKER
+        labelText.textContent = tasks; //
+        label.appendChild(checkbox);
+        label.appendChild(labelText);
+        projectDisplayTaskHolder.appendChild(label);
+      });
 
       projectDisplaySection.appendChild(projectDisplayTitle);
-      projectDisplayTaskHolder.appendChild(projectDisplayTasks);
       projectDisplaySection.appendChild(projectDisplayTaskHolder);
 
       projectDisplaySection.setAttribute("data-custom", "task--title");
 
       this.projectSections.appendChild(projectDisplaySection);
     });
+  }
 
+  renderTitleAndTasks() {
     // Task Rule
-    const projectDiv = document.querySelectorAll('[data-custom="task--title"]');
-
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
       const testClick = document.querySelector(".project-task");
       console.log(testClick);
-
       testClick.innerHTML = "";
+
+      this.projectDisplaySubTitle[3].tasks.push("Options");
+
+      this.renderProjectDisplay();
 
       // this.projectDisplaySubTitle.forEach((el) => {
       //   if (el.title === "Study Plan") {
@@ -187,9 +205,7 @@ export class RightUI extends LeftUI {
       //   }
       // });
     });
-  }
 
-  renderTitleAndTasks() {
     this.rightContentScreen.appendChild(this.projectSections);
   }
 
