@@ -95,14 +95,11 @@ export class RightUI extends LeftUI {
         tasks: ["Learn IELTS", "Learn Python"],
       },
     ];
-    // make a function when the new task is press put it in here
-    this.projectTasksArrayToRender = [];
 
     this.dateDisplay = document.createElement("h1");
     this.titleDisplay = document.createElement("h1");
     this.descriptionDisplay = document.createElement("p");
     this.tasksDisplay = document.createElement("div");
-    // this.formResult = this.modalDisplay();
 
     this.projectSections = document.createElement("div");
     this.projectSections.setAttribute("data-custom", "project-task");
@@ -110,7 +107,6 @@ export class RightUI extends LeftUI {
 
     this.renderHeaderDisplay();
     this.renderProjectDisplay();
-    this.renderTitleAndTasks();
   }
 
   renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
@@ -149,7 +145,6 @@ export class RightUI extends LeftUI {
       el.tasks.forEach((tasks) => {
         const projectDisplayTasks = document.createElement("p");
         projectDisplayTasks.textContent = tasks;
-        // projectDisplayTaskHolder.appendChild(projectDisplayTasks);
 
         const checkbox = document.createElement("input");
         checkbox.classList.add("input--ui");
@@ -170,136 +165,9 @@ export class RightUI extends LeftUI {
       projectDisplaySection.setAttribute("data-custom", "task--title");
 
       this.projectSections.appendChild(projectDisplaySection);
+      this.rightContentScreen.appendChild(this.projectSections);
     });
   }
-
-  renderTitleAndTasks() {
-    // Task Rule
-    const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
-    addTaskButton.addEventListener("click", () => {
-      const testClick = document.querySelector(".project-task");
-      console.log(testClick);
-      testClick.innerHTML = "";
-
-      this.projectDisplaySubTitle[3].tasks.push("Options");
-
-      this.renderProjectDisplay();
-
-      // this.projectDisplaySubTitle.forEach((el) => {
-      //   if (el.title === "Study Plan") {
-      //     el.tasks.push("Learn Larvel");
-
-      //     this.renderTitleAndTasks();
-      //   }
-      // });
-
-      // projectDiv.forEach((div) => {
-      //   const h3 = div.querySelector("h3");
-      //   const tasksHolder = div.querySelector("div");
-      //   // MARKER
-      //   if (h3 && h3.textContent === "Study SEO in-depth") {
-      //     if (tasksHolder) {
-      //       console.log(this.projectDisplaySubTitle);
-      //     }
-      //     console.log("hello");
-      //   }
-      // });
-    });
-
-    this.rightContentScreen.appendChild(this.projectSections);
-  }
-
-  // the modal should have 3 components. To create a Title(append to array), select a title, and add a task.
-  // modalDisplay(rightScreen, projectSection, taskDisplay) {
-  //   const form = document.createElement("form");
-  //   form.id = "formContainer;";
-  //   form.className = "form";
-  //   form.action = "";
-
-  //   // Create title options
-  //   const titleOptionsDiv = document.createElement("div");
-  //   titleOptionsDiv.className = "titleOptions";
-
-  //   const titleLabel = document.createElement("label");
-  //   titleLabel.textContent = "Title";
-  //   const titleInput = document.createElement("input");
-  //   titleInput.type = "text"; // Changed to "text" for title input
-  //   titleInput.name = "title";
-  //   titleInput.id = "title";
-  //   titleInput.required = true;
-
-  //   titleOptionsDiv.appendChild(titleLabel);
-  //   titleOptionsDiv.appendChild(titleInput);
-  //   form.appendChild(titleOptionsDiv);
-
-  //   // Create tasks section
-  //   const tasksDiv = document.createElement("div");
-  //   tasksDiv.className = "tasks";
-
-  //   const tasksLabel = document.createElement("label");
-  //   tasksLabel.textContent = "Task";
-  //   const tasksInput = document.createElement("input");
-  //   tasksInput.type = "text"; // Changed to "text" for task input
-  //   tasksInput.name = "task";
-  //   tasksInput.id = "task";
-  //   tasksInput.required = true;
-
-  //   tasksDiv.appendChild(tasksLabel);
-  //   tasksDiv.appendChild(tasksInput);
-  //   form.appendChild(tasksDiv);
-
-  //   // Create submit button
-  //   const submitButton = document.createElement("input");
-  //   submitButton.className = "formSubmit";
-  //   submitButton.type = "submit";
-  //   submitButton.value = "Submit";
-
-  //   form.appendChild(submitButton);
-  //   form.classList.add("hidden");
-  //   // Append the form to the container
-
-  //   // Add Task
-  //   const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
-  //   addTaskButton.addEventListener("click", () => {
-  //     form.classList.remove("hidden");
-
-  //     // Creating Checkbox
-  //     const checkbox = document.createElement("input");
-  //     checkbox.classList.add("input--ui");
-  //     checkbox.type = "checkbox";
-  //     checkbox.name = "dynamicCheckbox";
-  //     checkbox.value = "yes";
-  //     this.rightContentScreen.appendChild(checkbox); //CHANGE
-  //     const label = document.createElement("label");
-  //     const labelText = document.createElement("p");
-  //     // MARKER
-  //     labelText.textContent = "dataTask"; //
-  //     this.projectDisplaySubTitle[0].tasks.push("dataTask"); // NEED TO PUT IN MODAL
-  //     label.appendChild(checkbox);
-  //     label.appendChild(labelText);
-  //     this.tasksDisplay.appendChild(label);
-  //   });
-
-  //   form.addEventListener("submit", function (event) {
-  //     event.preventDefault(); // Prevent default form submission
-
-  //     // Here, you can make changes based on input values
-  //     const title = titleInput.value;
-  //     const task = tasksInput.value;
-
-  //     console.log(title);
-  //     console.log(task);
-
-  //     // Close the window
-  //     form.classList.add("hidden");
-
-  //     return title, task;
-  //   });
-
-  //   document.querySelector("#main-page").appendChild(form);
-  // }
-
-  formDisplay() {}
 }
 
 class DefaultScreenUI {}
