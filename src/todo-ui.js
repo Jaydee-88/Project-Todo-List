@@ -135,13 +135,12 @@ export class RightUI extends LeftUI {
       const projectDisplaySection = document.createElement("div");
       const projectDisplayTitle = document.createElement("h3");
       const projectDisplayTaskHolder = document.createElement("div");
-
-      projectDisplayTaskHolder.classList.add("tasks-display--ui");
+      const projectDisplayDueDate = document.createElement("p");
 
       projectDisplaySection.classList.add("project-section--ui");
+      projectDisplayTaskHolder.classList.add("tasks-display--ui");
 
       projectDisplayTitle.textContent = el.title;
-
       el.tasks.forEach((tasks) => {
         const projectDisplayTasks = document.createElement("p");
         projectDisplayTasks.textContent = tasks;
