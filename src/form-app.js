@@ -4,57 +4,86 @@ import { RightUI } from "./todo-ui";
 class FormDisplay extends RightUI {
   constructor(data) {
     super(data);
-
-    this.formDisplay();
+    this.form = this.createForm();
+    this.submitTask();
+    this.renderForm();
   }
 
-  formDisplay() {
-    // Create a form element
-    const form = document.createElement("form");
-    form.classList.add("form");
-    // form.classList.add("hidden");
+  submitTask() {
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    const titleForm = document.createElement("h2");
-    titleForm.textContent = "Add your Task";
-    form.appendChild(titleForm);
+      // Accessing input values
+      const titleInput = this.form.querySelector('input[placeholder="Title"]');
+      const taskInput = this.form.querySelector('input[placeholder="Task"]');
+      const taskDiv = document.querySelector(".project-task");
+      taskDiv.innerHTML = ""; // Prevent Duplication
 
-    // Create the first input
-    const input1 = document.createElement("input");
-    input1.type = "text";
-    input1.placeholder = "Title";
-    form.appendChild(input1);
+      const titleAnswer = titleInput.value;
+      const taskAnswer = taskInput.value;
 
-    // Create the second input
-    const input2 = document.createElement("input");
-    input2.type = "text";
-    input2.placeholder = "Task";
-    form.appendChild(input2);
+      console.log(titleAnswer);
 
-    // Create a button
-    const button = document.createElement("button");
-    button.type = "submit";
-    button.textContent = "Submit";
-    form.appendChild(button);
+      this.projectDisplaySubTitle.forEach((el) => {
+        if (el.title === titleAnswer) {
+          el.tasks.push(taskAnswer);
+        }
+      });
 
-    // Append the form to the body
-    document.querySelector("#main-page").appendChild(form);
+      this.renderProjectDisplay();
 
-    this.projectDisplaySubTitle.forEach((el) => {
-      console.log(el.title);
+      // Optionally, clear the inputs or perform other actions
+      titleInput.value = "";
+      taskInput.value = "";
+      this.form.classList.add("hidden");
     });
   }
 
-  renderTitleAndTasks() {
-    // Task Rule
+  createForm() {
+    const form = document.createElement("form");
+    form.classList.add("form");
+
+    // Composing form elements
+    const formElements = [
+      this.createFormTitle("Add your Task"),
+      this.createInput("text", "Title"),
+      this.createInput("text", "Task"),
+      this.createButton("Submit"),
+    ];
+
+    // Display the Title, Inputs, and Submit button in the array.
+    formElements.forEach((element) => form.appendChild(element));
+
+    document.querySelector("#main-page").appendChild(form);
+    return form;
+  }
+
+  createFormTitle(text) {
+    const title = document.createElement("h2");
+    title.textContent = text;
+    return title;
+  }
+
+  createInput(type, placeholder, value) {
+    const input = document.createElement("input");
+    input.type = type;
+    input.placeholder = placeholder;
+    input.required = true;
+    return input;
+  }
+
+  createButton(text) {
+    const button = document.createElement("button");
+    button.type = "submit";
+    button.textContent = text;
+    return button;
+  }
+
+  renderForm(title) {
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
-      const testClick = document.querySelector(".project-task");
-      console.log(testClick);
-      testClick.innerHTML = "";
-
-      this.projectDisplaySubTitle[3].tasks.push("Options");
-
-      this.renderProjectDisplay();
+      this.form.classList.remove("hidden");
+      return this.form;
     });
   }
 }

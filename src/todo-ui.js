@@ -168,5 +168,3 @@ export class RightUI extends LeftUI {
     });
   }
 }
-
-class DefaultScreenUI {}
