@@ -1,7 +1,7 @@
 // extend here the RightUi class and implement the form
 import { RightUI } from "./todo-ui";
 
-class FormDisplay extends RightUI {
+export class FormDisplay extends RightUI {
   constructor(data) {
     super(data);
     this.form = this.createForm();
@@ -115,5 +115,3 @@ class FormDisplay extends RightUI {
     });
   }
 }
-
-new FormDisplay();

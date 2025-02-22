@@ -138,6 +138,10 @@ export class RightUI extends LeftUI {
       projectDisplaySection.setAttribute("data-custom", "task--title");
 
       const projectDisplayTitle = this.createElement("h3", null, project.title);
+      const projectDisplayTitleHolder = document.createElement("div");
+      projectDisplayTitleHolder.append(projectDisplayTitle, this.editButton());
+      projectDisplayTitleHolder.classList.add("project-sub-title");
+
       const projectDisplayTaskHolder = document.createElement("div");
       projectDisplayTaskHolder.classList.add("tasks-display--ui");
 
@@ -147,7 +151,7 @@ export class RightUI extends LeftUI {
       });
 
       projectDisplaySection.append(
-        projectDisplayTitle,
+        projectDisplayTitleHolder,
         projectDisplayTaskHolder
       );
       this.projectSections.appendChild(projectDisplaySection);
@@ -162,8 +166,16 @@ export class RightUI extends LeftUI {
     checkbox.type = "checkbox";
     const labelText = this.createElement("p", null, task);
 
-    label.append(checkbox, labelText);
+    label.append(checkbox, labelText, this.editButton());
     return label;
+  }
+
+  editButton() {
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.id = "editBtn";
+
+    return editBtn;
   }
 }
 
