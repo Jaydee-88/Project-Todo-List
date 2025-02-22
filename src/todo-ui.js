@@ -76,10 +76,15 @@ export class RightUI extends LeftUI {
   constructor(data) {
     super(data);
     this.rightContentScreen = document.querySelector("#display--screen");
+    this.projectSections = document.createElement("div");
 
+    this.projectSections.setAttribute("data-custom", "project-task");
+    this.projectSections.classList.add("project-task");
+
+    // DATA
     this.projectDisplaySubTitle = [
       {
-        title: "Preperation for Powerpoint",
+        title: "Preparation for Powerpoint",
         tasks: ["Make 3 slides for SEO"],
       },
       {
@@ -88,7 +93,7 @@ export class RightUI extends LeftUI {
       },
       {
         title: "Workout Routine",
-        tasks: ["Make a 7 day weekplan with 2 rest days"],
+        tasks: ["Make a 7-day week plan with 2 rest days"],
       },
       {
         title: "Study Plan",
@@ -96,75 +101,164 @@ export class RightUI extends LeftUI {
       },
     ];
 
-    this.dateDisplay = document.createElement("h1");
-    this.titleDisplay = document.createElement("h1");
-    this.descriptionDisplay = document.createElement("p");
-    this.tasksDisplay = document.createElement("div");
-
-    this.projectSections = document.createElement("div");
-    this.projectSections.setAttribute("data-custom", "project-task");
-    this.projectSections.classList.add("project-task");
-
+    this.createDisplays();
     this.renderHeaderDisplay();
     this.renderProjectDisplay();
   }
 
-  renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
-    this.dateDisplay.textContent = "Today";
-    this.titleDisplay.textContent = "Title";
-    this.descriptionDisplay.textContent =
-      "The description is here try to find a way for users to edit this and make a button besides the title to edit.";
-    this.dateDisplay.classList.add("date--ui");
-    this.titleDisplay.classList.add("title--ui");
-    this.descriptionDisplay.classList.add("description--ui");
-
-    this.rightContentScreen.appendChild(this.dateDisplay);
-    this.rightContentScreen.appendChild(this.titleDisplay);
-    this.rightContentScreen.appendChild(this.descriptionDisplay);
+  createDisplays() {
+    this.dateDisplay = this.createElement("h1", "date--ui", "Today");
+    this.titleDisplay = this.createElement("h1", "title--ui", "Title");
+    this.descriptionDisplay = this.createElement(
+      "p",
+      "description--ui",
+      "The description is here; try to find a way for users to edit this and make a button besides the title to edit."
+    );
   }
 
-  renderProjectDisplay(dataSubTitle, dataTask) {
-    this.projectSection = document.createElement("div");
-    this.projectTitle = document.createElement("h3");
-    this.projectSection.classList.add("project-section--ui");
-    this.projectTitle.classList.add("project-title--ui");
-    this.tasksDisplay.classList.add("tasks-display--ui");
+  createElement(tag, className, textContent) {
+    const element = document.createElement(tag);
+    if (className) element.classList.add(className);
+    if (textContent) element.textContent = textContent;
+    return element;
+  }
 
-    // Display Sub-Title and tasks
-    this.projectDisplaySubTitle.forEach((el) => {
+  renderHeaderDisplay() {
+    this.rightContentScreen.append(
+      this.dateDisplay,
+      this.titleDisplay,
+      this.descriptionDisplay
+    );
+  }
+
+  renderProjectDisplay() {
+    this.projectDisplaySubTitle.forEach((project) => {
       const projectDisplaySection = document.createElement("div");
-      const projectDisplayTitle = document.createElement("h3");
-      const projectDisplayTaskHolder = document.createElement("div");
-      const projectDisplayDueDate = document.createElement("p");
-
       projectDisplaySection.classList.add("project-section--ui");
-      projectDisplayTaskHolder.classList.add("tasks-display--ui");
-
-      projectDisplayTitle.textContent = el.title;
-      el.tasks.forEach((tasks) => {
-        const projectDisplayTasks = document.createElement("p");
-        projectDisplayTasks.textContent = tasks;
-
-        const checkbox = document.createElement("input");
-        checkbox.classList.add("input--ui");
-        checkbox.type = "checkbox";
-
-        const label = document.createElement("label");
-        const labelText = document.createElement("p");
-        // // MARKER
-        labelText.textContent = tasks; //
-        label.appendChild(checkbox);
-        label.appendChild(labelText);
-        projectDisplayTaskHolder.appendChild(label);
-      });
-
-      projectDisplaySection.appendChild(projectDisplayTitle);
-      projectDisplaySection.appendChild(projectDisplayTaskHolder);
-
       projectDisplaySection.setAttribute("data-custom", "task--title");
 
+      const projectDisplayTitle = this.createElement("h3", null, project.title);
+      const projectDisplayTaskHolder = document.createElement("div");
+      projectDisplayTaskHolder.classList.add("tasks-display--ui");
+
+      project.tasks.forEach((task) => {
+        const taskLabel = this.createTaskLabel(task);
+        projectDisplayTaskHolder.appendChild(taskLabel);
+      });
+
+      projectDisplaySection.append(
+        projectDisplayTitle,
+        projectDisplayTaskHolder
+      );
       this.projectSections.appendChild(projectDisplaySection);
-      this.rightContentScreen.appendChild(this.projectSections);
     });
+
+    this.rightContentScreen.appendChild(this.projectSections);
+  }
+
+  createTaskLabel(task) {
+    const label = document.createElement("label");
+    const checkbox = this.createElement("input", "input--ui");
+    checkbox.type = "checkbox";
+    const labelText = this.createElement("p", null, task);
+
+    label.append(checkbox, labelText);
+    return label;
   }
 }
+
+// export class RightUI extends LeftUI {
+//   constructor(data) {
+//     super(data);
+//     this.rightContentScreen = document.querySelector("#display--screen");
+
+//     this.projectDisplaySubTitle = [
+//       {
+//         title: "Preperation for Powerpoint",
+//         tasks: ["Make 3 slides for SEO"],
+//       },
+//       {
+//         title: "Study SEO in-depth",
+//         tasks: ["Learn the fundamentals"],
+//       },
+//       {
+//         title: "Workout Routine",
+//         tasks: ["Make a 7 day weekplan with 2 rest days"],
+//       },
+//       {
+//         title: "Study Plan",
+//         tasks: ["Learn IELTS", "Learn Python"],
+//       },
+//     ];
+
+//     this.dateDisplay = document.createElement("h1");
+//     this.titleDisplay = document.createElement("h1");
+//     this.descriptionDisplay = document.createElement("p");
+//     this.tasksDisplay = document.createElement("div");
+
+//     this.projectSections = document.createElement("div");
+//     this.projectSections.setAttribute("data-custom", "project-task");
+//     this.projectSections.classList.add("project-task");
+
+//     this.renderHeaderDisplay();
+//     this.renderProjectDisplay();
+//   }
+
+//   renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
+//     this.dateDisplay.textContent = "Today";
+//     this.titleDisplay.textContent = "Title";
+//     this.descriptionDisplay.textContent =
+//       "The description is here try to find a way for users to edit this and make a button besides the title to edit.";
+//     this.dateDisplay.classList.add("date--ui");
+//     this.titleDisplay.classList.add("title--ui");
+//     this.descriptionDisplay.classList.add("description--ui");
+
+//     this.rightContentScreen.appendChild(this.dateDisplay);
+//     this.rightContentScreen.appendChild(this.titleDisplay);
+//     this.rightContentScreen.appendChild(this.descriptionDisplay);
+//   }
+
+//   renderProjectDisplay(dataSubTitle, dataTask) {
+//     this.projectSection = document.createElement("div");
+//     this.projectTitle = document.createElement("h3");
+//     this.projectSection.classList.add("project-section--ui");
+//     this.projectTitle.classList.add("project-title--ui");
+//     this.tasksDisplay.classList.add("tasks-display--ui");
+
+//     // Display Sub-Title and tasks
+//     this.projectDisplaySubTitle.forEach((el) => {
+//       const projectDisplaySection = document.createElement("div");
+//       const projectDisplayTitle = document.createElement("h3");
+//       const projectDisplayTaskHolder = document.createElement("div");
+//       const projectDisplayDueDate = document.createElement("p");
+
+//       projectDisplaySection.classList.add("project-section--ui");
+//       projectDisplayTaskHolder.classList.add("tasks-display--ui");
+
+//       projectDisplayTitle.textContent = el.title;
+//       el.tasks.forEach((tasks) => {
+//         const projectDisplayTasks = document.createElement("p");
+//         projectDisplayTasks.textContent = tasks;
+
+//         const checkbox = document.createElement("input");
+//         checkbox.classList.add("input--ui");
+//         checkbox.type = "checkbox";
+
+//         const label = document.createElement("label");
+//         const labelText = document.createElement("p");
+//         // // MARKER
+//         labelText.textContent = tasks; //
+//         label.appendChild(checkbox);
+//         label.appendChild(labelText);
+//         projectDisplayTaskHolder.appendChild(label);
+//       });
+
+//       projectDisplaySection.appendChild(projectDisplayTitle);
+//       projectDisplaySection.appendChild(projectDisplayTaskHolder);
+
+//       projectDisplaySection.setAttribute("data-custom", "task--title");
+
+//       this.projectSections.appendChild(projectDisplaySection);
+//       this.rightContentScreen.appendChild(this.projectSections);
+//     });
+//   }
