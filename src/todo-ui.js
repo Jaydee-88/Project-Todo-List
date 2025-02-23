@@ -1,4 +1,5 @@
 const mainSection = document.querySelector("#main-page");
+import { FormDisplay } from "./form-app";
 
 class LeftUI {
   constructor(dataTitle) {
@@ -82,7 +83,7 @@ export class RightUI extends LeftUI {
     this.projectSections.classList.add("project-task");
 
     // DATA
-    this.projectDisplaySubTitle = [
+    this.titleTaskData = [
       {
         title: "Preparation for Powerpoint",
         tasks: ["Make 3 slides for SEO"],
@@ -103,7 +104,9 @@ export class RightUI extends LeftUI {
 
     this.createDisplays();
     this.renderHeaderDisplay();
-    this.renderProjectDisplay();
+    this.renderProjectDisplay(this.titleTaskData);
+
+    this.renderForm(this.titleTaskData); // Render Form
   }
 
   createDisplays() {
@@ -131,8 +134,11 @@ export class RightUI extends LeftUI {
     );
   }
 
-  renderProjectDisplay() {
-    this.projectDisplaySubTitle.forEach((project) => {
+  // Need to refactor this as it is not rendering
+  renderProjectDisplay(data) {
+    this.projectSections.innerHTML = ""; // Prevent Duplication
+
+    data.forEach((project) => {
       const projectDisplaySection = document.createElement("div");
       projectDisplaySection.classList.add("project-section--ui");
       projectDisplaySection.setAttribute("data-custom", "task--title");
@@ -149,7 +155,6 @@ export class RightUI extends LeftUI {
         const taskLabel = this.createTaskLabel(task);
         projectDisplayTaskHolder.appendChild(taskLabel);
       });
-
       projectDisplaySection.append(
         projectDisplayTitleHolder,
         projectDisplayTaskHolder
@@ -177,6 +182,12 @@ export class RightUI extends LeftUI {
 
     return editBtn;
   }
+
+  // Forms
+  // this needs to be explained
+  renderForm(data) {
+    new FormDisplay(data, this.renderProjectDisplay.bind(this, data));
+  }
 }
 
 // export class RightUI extends LeftUI {
@@ -184,7 +195,7 @@ export class RightUI extends LeftUI {
 //     super(data);
 //     this.rightContentScreen = document.querySelector("#display--screen");
 
-//     this.projectDisplaySubTitle = [
+//     this.titleTaskData = [
 //       {
 //         title: "Preperation for Powerpoint",
 //         tasks: ["Make 3 slides for SEO"],
@@ -238,7 +249,7 @@ export class RightUI extends LeftUI {
 //     this.tasksDisplay.classList.add("tasks-display--ui");
 
 //     // Display Sub-Title and tasks
-//     this.projectDisplaySubTitle.forEach((el) => {
+//     this.titleTaskData.forEach((el) => {
 //       const projectDisplaySection = document.createElement("div");
 //       const projectDisplayTitle = document.createElement("h3");
 //       const projectDisplayTaskHolder = document.createElement("div");

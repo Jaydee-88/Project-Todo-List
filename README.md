@@ -19,7 +19,5 @@ Keywords to add:
 
 
 <!-- for Organizing -->
-- Need to import form.js into todo-ui.js then display them using index.js
-- Play with the constructor to integrate the form into the js file.
-- In the form try to add a parameter. Then import the form into RightUI. from there the form can access the RightUI data.
-- Remove extend in the forms
+- make another file for the Edit Buttons.
+- Learn about the bind method

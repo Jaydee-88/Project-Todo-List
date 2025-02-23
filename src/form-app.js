@@ -1,14 +1,15 @@
-// extend here the RightUi class and implement the form
-import { RightUI } from "./todo-ui";
+// Global this.renderProjectDisplay(); and this.projectDisplaySubTitle()
 
-export class FormDisplay extends RightUI {
-  constructor(data) {
-    super(data);
+export class FormDisplay {
+  constructor(data, render) {
+    this.data = data;
+    this.render = render;
     this.form = this.createForm();
+
     this.submitTask();
     this.renderForm();
 
-    this.createSelect();
+    // this.createSelect(this.data);
   }
 
   submitTask() {
@@ -18,41 +19,46 @@ export class FormDisplay extends RightUI {
       // Accessing input values
       const titleInput = this.form.querySelector("#selector");
       const taskInput = this.form.querySelector('input[placeholder="Task"]');
-      const taskDiv = document.querySelector(".project-task");
-      taskDiv.innerHTML = ""; // Prevent Duplication
 
       const titleAnswer = titleInput.value;
       const taskAnswer = taskInput.value;
 
       if (titleAnswer === "-- Please Choose an Option --") {
         titleAnswer.value === "";
-        this.renderProjectDisplay();
+        this.render();
         return;
       }
 
-      this.projectDisplaySubTitle.forEach((el) => {
+      this.data.forEach((el) => {
         if (el.title === titleAnswer) {
           el.tasks.push(taskAnswer);
         }
       });
 
-      this.renderProjectDisplay();
+      this.render();
 
       // Clear the inputs or perform other actions
       titleInput.value = "-- Please Choose an Option --";
       taskInput.value = "";
       this.form.classList.add("hidden");
+
+      return this.data;
     });
   }
 
   createForm() {
+    let existingForm = document.querySelector(".form");
+    if (existingForm) {
+      return existingForm; // Return the existing form
+    }
+
     const form = document.createElement("form");
     form.classList.add("form", "hidden");
 
     // Composing form elements
     const formElements = [
       this.createFormTitle("Add your Task"),
-      this.createSelect(this.projectDisplaySubTitle),
+      this.createSelect(this.data),
       this.createInput("text", "Task"),
       this.createButton("Submit"),
     ];
@@ -107,7 +113,7 @@ export class FormDisplay extends RightUI {
     return button;
   }
 
-  renderForm(title) {
+  renderForm() {
     const addTaskButton = document.querySelector('[data-custom="addNewTask"]');
     addTaskButton.addEventListener("click", () => {
       this.form.classList.remove("hidden");
