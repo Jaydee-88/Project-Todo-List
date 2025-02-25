@@ -19,5 +19,10 @@ Keywords to add:
 
 
 <!-- for Organizing -->
-- make another file for the Edit Buttons.
-- Learn about the bind method
+- Organize the edit button and out it into another file so its not cluttered.
+- Update the Project section so that if clicked it changes the data accordingly and update the Left and Right UI.
+- Create a database. Try to experimenting by mixing them or separate. It should integrate with the Left and Right UI
+- Use Function composition
+
+
+- Learn about the bind method - it binds the this keyword and invokes it later. its like a variable but you can call it. call meaning = runThis()

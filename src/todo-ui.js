@@ -1,5 +1,5 @@
-const mainSection = document.querySelector("#main-page");
 import { FormDisplay } from "./form-app";
+import { EditForm } from "./edit-form-app";
 
 class LeftUI {
   constructor(dataTitle) {
@@ -35,7 +35,6 @@ class LeftUI {
     newTaskButton.appendChild(newTaskText);
     newTaskButton.classList.add("newTaskButton");
 
-    // CHANGE TO IMAGE THE LOGO
     this.headingLogo.textContent = "LOGO";
     this.headingLogo.classList.add("logo");
 
@@ -55,7 +54,6 @@ class LeftUI {
     this.leftNavScreen.appendChild(this.teamHolder);
   }
 
-  // Fix the issue inside and outside the BUTTON LIST it should be clickable. they should be merge. something related to bubbling.
   leftUIcontents(todosArray) {
     const listsOfTodosHolder = document.createElement("ul");
     listsOfTodosHolder.classList.add("projects-ul");
@@ -73,16 +71,14 @@ class LeftUI {
   }
 }
 
-export class RightUI extends LeftUI {
-  constructor(data) {
-    super(data);
+export class RightUI {
+  constructor(leftData, rightData) {
+    this.leftUI = new LeftUI(); // Composition: Use LeftUI inside RightUI
     this.rightContentScreen = document.querySelector("#display--screen");
     this.projectSections = document.createElement("div");
-
     this.projectSections.setAttribute("data-custom", "project-task");
     this.projectSections.classList.add("project-task");
 
-    // DATA
     this.titleTaskData = [
       {
         title: "Preparation for Powerpoint",
@@ -106,8 +102,11 @@ export class RightUI extends LeftUI {
     this.renderHeaderDisplay();
     this.renderProjectDisplay(this.titleTaskData);
 
-    this.renderForm(this.titleTaskData); // Render Form
+    this.renderForm(this.titleTaskData);
+    this.renderEditForm();
   }
+
+  // Need to put in another file
 
   createDisplays() {
     this.dateDisplay = this.createElement("h1", "date--ui", "Today");
@@ -134,9 +133,8 @@ export class RightUI extends LeftUI {
     );
   }
 
-  // Need to refactor this as it is not rendering
   renderProjectDisplay(data) {
-    this.projectSections.innerHTML = ""; // Prevent Duplication
+    this.projectSections.innerHTML = "";
 
     data.forEach((project) => {
       const projectDisplaySection = document.createElement("div");
@@ -183,105 +181,11 @@ export class RightUI extends LeftUI {
     return editBtn;
   }
 
-  // Forms
-  // this needs to be explained
   renderForm(data) {
     new FormDisplay(data, this.renderProjectDisplay.bind(this, data));
   }
+
+  renderEditForm() {
+    new EditForm();
+  }
 }
-
-// export class RightUI extends LeftUI {
-//   constructor(data) {
-//     super(data);
-//     this.rightContentScreen = document.querySelector("#display--screen");
-
-//     this.titleTaskData = [
-//       {
-//         title: "Preperation for Powerpoint",
-//         tasks: ["Make 3 slides for SEO"],
-//       },
-//       {
-//         title: "Study SEO in-depth",
-//         tasks: ["Learn the fundamentals"],
-//       },
-//       {
-//         title: "Workout Routine",
-//         tasks: ["Make a 7 day weekplan with 2 rest days"],
-//       },
-//       {
-//         title: "Study Plan",
-//         tasks: ["Learn IELTS", "Learn Python"],
-//       },
-//     ];
-
-//     this.dateDisplay = document.createElement("h1");
-//     this.titleDisplay = document.createElement("h1");
-//     this.descriptionDisplay = document.createElement("p");
-//     this.tasksDisplay = document.createElement("div");
-
-//     this.projectSections = document.createElement("div");
-//     this.projectSections.setAttribute("data-custom", "project-task");
-//     this.projectSections.classList.add("project-task");
-
-//     this.renderHeaderDisplay();
-//     this.renderProjectDisplay();
-//   }
-
-//   renderHeaderDisplay(dataTitle, dataTime, dataDescription) {
-//     this.dateDisplay.textContent = "Today";
-//     this.titleDisplay.textContent = "Title";
-//     this.descriptionDisplay.textContent =
-//       "The description is here try to find a way for users to edit this and make a button besides the title to edit.";
-//     this.dateDisplay.classList.add("date--ui");
-//     this.titleDisplay.classList.add("title--ui");
-//     this.descriptionDisplay.classList.add("description--ui");
-
-//     this.rightContentScreen.appendChild(this.dateDisplay);
-//     this.rightContentScreen.appendChild(this.titleDisplay);
-//     this.rightContentScreen.appendChild(this.descriptionDisplay);
-//   }
-
-//   renderProjectDisplay(dataSubTitle, dataTask) {
-//     this.projectSection = document.createElement("div");
-//     this.projectTitle = document.createElement("h3");
-//     this.projectSection.classList.add("project-section--ui");
-//     this.projectTitle.classList.add("project-title--ui");
-//     this.tasksDisplay.classList.add("tasks-display--ui");
-
-//     // Display Sub-Title and tasks
-//     this.titleTaskData.forEach((el) => {
-//       const projectDisplaySection = document.createElement("div");
-//       const projectDisplayTitle = document.createElement("h3");
-//       const projectDisplayTaskHolder = document.createElement("div");
-//       const projectDisplayDueDate = document.createElement("p");
-
-//       projectDisplaySection.classList.add("project-section--ui");
-//       projectDisplayTaskHolder.classList.add("tasks-display--ui");
-
-//       projectDisplayTitle.textContent = el.title;
-//       el.tasks.forEach((tasks) => {
-//         const projectDisplayTasks = document.createElement("p");
-//         projectDisplayTasks.textContent = tasks;
-
-//         const checkbox = document.createElement("input");
-//         checkbox.classList.add("input--ui");
-//         checkbox.type = "checkbox";
-
-//         const label = document.createElement("label");
-//         const labelText = document.createElement("p");
-//         // // MARKER
-//         labelText.textContent = tasks; //
-//         label.appendChild(checkbox);
-//         label.appendChild(labelText);
-//         projectDisplayTaskHolder.appendChild(label);
-//       });
-
-//       projectDisplaySection.appendChild(projectDisplayTitle);
-//       projectDisplaySection.appendChild(projectDisplayTaskHolder);
-
-//       projectDisplaySection.setAttribute("data-custom", "task--title");
-
-//       this.projectSections.appendChild(projectDisplaySection);
-//       this.rightContentScreen.appendChild(this.projectSections);
-//     });
-//   }

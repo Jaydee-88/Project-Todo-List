@@ -2,7 +2,9 @@
   position: relative;
 }
 
-.form {
+/* Add task Form */
+.form,
+.edit-form {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -16,6 +18,9 @@
   box-shadow: 2px 2px 30px rgb(32, 32, 32);
 }
 
+/* Edit Form */
+
+/* Global */
 .hidden {
   display: none;
 }

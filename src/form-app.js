@@ -9,7 +9,6 @@ export class FormDisplay {
     this.submitTask();
     this.renderForm();
 
-    // this.createSelect(this.data);
   }
 
   submitTask() {
