@@ -79,6 +79,7 @@ export class RightUI {
     this.projectSections.setAttribute("data-custom", "project-task");
     this.projectSections.classList.add("project-task");
 
+    // Put here the data from index
     this.titleTaskData = [
       {
         title: "Preparation for Powerpoint",
@@ -98,24 +99,51 @@ export class RightUI {
       },
     ];
 
-    this.createDisplays();
-    this.renderHeaderDisplay();
+    this.projectInformation = {
+      date: "Today",
+      title: "Title",
+      description:
+        "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
+    };
+
+    this.renderHeaderDisplay(this.createDisplays());
     this.renderProjectDisplay(this.titleTaskData);
 
+    // Form Related
     this.renderForm(this.titleTaskData);
     this.renderEditForm();
   }
 
-  // Need to put in another file
-
   createDisplays() {
-    this.dateDisplay = this.createElement("h1", "date--ui", "Today");
-    this.titleDisplay = this.createElement("h1", "title--ui", "Title");
-    this.descriptionDisplay = this.createElement(
+    const projectInformation = this.createElement("div", "project-info", null);
+    const titleAndButton = this.createElement("div", "title-and-button", null);
+
+    const titleDisplay = this.createElement(
+      "h1",
+      "title--ui",
+      this.projectInformation.title
+    );
+    titleAndButton.append(titleDisplay, this.editButton());
+    const dateDisplay = this.createElement(
+      "h2",
+      "date--ui",
+      this.projectInformation.date
+    );
+    const descriptionDisplay = this.createElement(
       "p",
       "description--ui",
-      "The description is here; try to find a way for users to edit this and make a button besides the title to edit."
+      this.projectInformation.description
     );
+
+    projectInformation.append(dateDisplay, titleAndButton, descriptionDisplay);
+    // projectInformation.addEventListener("click", function () {
+    //   console.log("edit me");
+    // });
+    return projectInformation;
+  }
+
+  renderHeaderDisplay(div) {
+    this.rightContentScreen.append(div);
   }
 
   createElement(tag, className, textContent) {
@@ -123,14 +151,6 @@ export class RightUI {
     if (className) element.classList.add(className);
     if (textContent) element.textContent = textContent;
     return element;
-  }
-
-  renderHeaderDisplay() {
-    this.rightContentScreen.append(
-      this.dateDisplay,
-      this.titleDisplay,
-      this.descriptionDisplay
-    );
   }
 
   renderProjectDisplay(data) {

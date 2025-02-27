@@ -8,7 +8,7 @@ new RightUI();
 
 const mainData = [
   {
-    project: "Default",
+    project: "Stuff to-do",
     data: [
       {
         title: "Preparation for Powerpoint",
@@ -42,3 +42,7 @@ const mainData = [
     ],
   },
 ];
+
+// console.log(mainData[0].data);
+
+// put a parameter on the right side UI so the data will display accodingly. Make sure that the when project is seleted, the title is also projected
