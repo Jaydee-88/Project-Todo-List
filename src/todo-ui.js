@@ -106,43 +106,33 @@ export class RightUI {
         "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
     };
 
-    this.renderHeaderDisplay(this.createDisplays());
+    this.renderHeader(this.renderHeaderDisplays(this.projectInformation));
     this.renderProjectDisplay(this.titleTaskData);
 
     // Form Related
     this.renderForm(this.titleTaskData);
-    this.renderEditForm();
+    this.renderEditForm(this.projectInformation, this.titleTaskData);
   }
 
-  createDisplays() {
+  renderHeaderDisplays(data) {
     const projectInformation = this.createElement("div", "project-info", null);
     const titleAndButton = this.createElement("div", "title-and-button", null);
 
-    const titleDisplay = this.createElement(
-      "h1",
-      "title--ui",
-      this.projectInformation.title
-    );
+    const titleDisplay = this.createElement("h1", "title--ui", data.title);
     titleAndButton.append(titleDisplay, this.editButton());
-    const dateDisplay = this.createElement(
-      "h2",
-      "date--ui",
-      this.projectInformation.date
-    );
+    const dateDisplay = this.createElement("h2", "date--ui", data.date);
     const descriptionDisplay = this.createElement(
       "p",
       "description--ui",
-      this.projectInformation.description
+      data.description
     );
 
     projectInformation.append(dateDisplay, titleAndButton, descriptionDisplay);
-    // projectInformation.addEventListener("click", function () {
-    //   console.log("edit me");
-    // });
+
     return projectInformation;
   }
 
-  renderHeaderDisplay(div) {
+  renderHeader(div) {
     this.rightContentScreen.append(div);
   }
 
@@ -205,7 +195,10 @@ export class RightUI {
     new FormDisplay(data, this.renderProjectDisplay.bind(this, data));
   }
 
-  renderEditForm() {
-    new EditForm();
+  renderEditForm(data, data2) {
+    new EditForm(
+      this.projectInformation,
+      this.renderHeaderDisplays.bind(this, data)
+    );
   }
 }

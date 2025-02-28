@@ -1,9 +1,10 @@
 export class EditForm {
-  constructor(data, editBtn) {
+  constructor(data, render, render2) {
     this.data = data;
-    this.editBtn = editBtn;
+    this.render = render;
+    this.render2 = render2;
     this.currentPromptElement = null; // Initialize here
-    this.currentPromptInformation = null;
+    this.currentPromptInformation = [];
     this.form = this.createForm();
     this.form2 = this.createInformationForm();
     this.editButtonLogic(); // Set up the edit button logic
@@ -17,6 +18,10 @@ export class EditForm {
       button.addEventListener("click", (e) => {
         const taskInput = this.form.querySelector("input");
         this.form.classList.remove("hidden");
+
+        const dateInput = this.form2.querySelector("#date-input");
+        const titleInput = this.form2.querySelector("#title-input");
+        const descriptionInput = this.form2.querySelector("#description-input");
 
         const labelForTask = button.closest("label");
         const labelForTitle = button.closest(".project-sub-title");
@@ -38,8 +43,21 @@ export class EditForm {
         if (labelsForHeaders) {
           this.form.classList.add("hidden");
           this.form2.classList.remove("hidden");
-          this.currentPromptInformation = "hello";
-          console.log(this.currentPromptInformation);
+
+          Object.entries(this.data).forEach(([key, value]) => {
+            if (key === "date") {
+              const datePlaceHolder = value;
+              dateInput.value = datePlaceHolder;
+            }
+            if (key === "title") {
+              const titlePlaceHolder = value;
+              titleInput.value = titlePlaceHolder;
+            }
+            if (key === "description") {
+              const descriptionPlaceHolder = value;
+              descriptionInput.value = descriptionPlaceHolder;
+            }
+          });
         }
       });
     });
@@ -57,10 +75,6 @@ export class EditForm {
         this.currentPromptElement.textContent = updatedTask;
       }
 
-      if (this.currentPromptInformation) {
-        console.log("test");
-      }
-
       // Clear the input and hide the form
       taskInput.value = "";
       this.form.classList.add("hidden");
@@ -69,21 +83,25 @@ export class EditForm {
 
     this.form2.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      const taskInput = this.form.querySelector("input");
-      const updatedTask = taskInput.value;
+      const dateInput = this.form2.querySelector("#date-input");
+      const titleInput = this.form2.querySelector("#title-input");
+      const descriptionInput = this.form2.querySelector("#description-input");
+      // const updatedTask = taskInput.value;
+      const main = (document.querySelector(".project-info").innerHTML = "");
 
       // Update the paragraph text with the new value
-      if (this.currentPromptElement) {
-        this.currentPromptElement.textContent = updatedTask;
+      if (this.currentPromptInformation) {
+        this.data.date = "bitch date";
+        console.log(this.data);
       }
 
-      if (this.currentPromptInformation) {
-        console.log("test");
-      }
+      this.render();
+      this.render2();
 
       // Clear the input and hide the form
-      taskInput.value = "";
+      dateInput.value = "";
+      titleInput.value = "";
+      descriptionInput.value = "";
       this.form2.classList.add("hidden");
       this.currentPromptElement = null; // Clear reference after submission
     });
@@ -109,9 +127,9 @@ export class EditForm {
     form.classList.add("edit-form", "hidden");
 
     const formInformation = [
-      this.createInput("text", "Edit your task..."),
-      this.createInput("text", "Edit your task..."),
-      this.createInput("text", "Edit your task..."),
+      this.createInput("text", "Edit your task...", "date-input"),
+      this.createInput("text", "Edit your task...", "title-input"),
+      this.createInput("text", "Edit your task...", "description-input"),
       this.createButton("Submit"),
     ];
 
@@ -121,10 +139,11 @@ export class EditForm {
     return form;
   }
 
-  createInput(type, placeholder) {
+  createInput(type, placeholder, id) {
     const input = document.createElement("input");
     input.type = type;
     input.placeholder = placeholder;
+    input.id = id;
     return input;
   }
 
