@@ -1,5 +1,5 @@
 import { FormDisplay } from "./form-app";
-import { EditForm } from "./edit-form-app";
+import { EditForm, EditFormFix } from "./edit-form-app";
 
 class LeftUI {
   constructor(dataTitle) {
@@ -80,6 +80,13 @@ export class RightUI {
     this.projectSections.classList.add("project-task");
 
     // Put here the data from index
+    this.projectInformation = {
+      date: "Today",
+      title: "Title",
+      description:
+        "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
+    };
+
     this.titleTaskData = [
       {
         title: "Preparation for Powerpoint",
@@ -99,19 +106,16 @@ export class RightUI {
       },
     ];
 
-    this.projectInformation = {
-      date: "Today",
-      title: "Title",
-      description:
-        "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
-    };
-
     this.renderHeader(this.renderHeaderDisplays(this.projectInformation));
     this.renderProjectDisplay(this.titleTaskData);
 
     // Form Related
-    this.renderForm(this.titleTaskData);
-    this.renderEditForm(this.projectInformation, this.titleTaskData);
+    this.editButtons = new EditFormFix(
+      this.projectInformation,
+      this.titleTaskData
+    );
+    // this.renderForm(this.titleTaskData);
+    // this.renderEditForm(this.projectInformation, this.titleTaskData);
   }
 
   renderHeaderDisplays(data) {
@@ -198,7 +202,8 @@ export class RightUI {
   renderEditForm(data, data2) {
     new EditForm(
       this.projectInformation,
-      this.renderHeaderDisplays.bind(this, data)
+      this.renderHeaderDisplays.bind(this, data),
+      data2
     );
   }
 }

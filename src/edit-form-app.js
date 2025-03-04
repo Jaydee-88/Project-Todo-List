@@ -1,16 +1,14 @@
 export class EditForm {
-  constructor(data, render, render2) {
+  constructor(data, render, data2) {
     this.data = data;
     this.render = render;
-    this.render2 = render2;
+    this.data2 = data2;
     this.currentPromptElement = null; // Initialize here
     this.currentPromptInformation = [];
     this.form = this.createForm();
     this.form2 = this.createInformationForm();
     this.editButtonLogic(); // Set up the edit button logic
   }
-
-  currentPromptHeaderElement() {}
 
   editButtonLogic() {
     const editBtns = document.querySelectorAll("#editBtn");
@@ -73,6 +71,7 @@ export class EditForm {
       // Update the paragraph text with the new value
       if (this.currentPromptElement) {
         this.currentPromptElement.textContent = updatedTask;
+        console.log(this.data2);
       }
 
       // Clear the input and hide the form
@@ -92,11 +91,9 @@ export class EditForm {
       // Update the paragraph text with the new value
       if (this.currentPromptInformation) {
         this.data.date = "bitch date";
-        console.log(this.data);
       }
 
       this.render();
-      this.render2();
 
       // Clear the input and hide the form
       dateInput.value = "";
@@ -155,3 +152,55 @@ export class EditForm {
     return button;
   }
 }
+
+export class EditFormFix {
+  constructor(informationData, tasksData, render) {
+    this.informationData = informationData;
+    this.tasksData = tasksData;
+    this.render = render;
+
+    this.editObjects();
+  }
+
+  editObjects() {
+    const editBtns = document.querySelectorAll("#editBtn");
+    this.tasksData.forEach((el) => {
+      el.tasks.forEach((task) => {
+        editBtns.forEach((button) => {
+          button.addEventListener("click", (e) => {
+            const labelsForHeaders = button.closest(".project-info");
+            const labelForTitle = button.closest(".project-sub-title");
+            const labelForTask = button.closest("label");
+
+            const editTitle = labelForTitle
+              ? labelForTitle.querySelector("h3")
+              : null;
+            const editTask = labelForTask
+              ? labelForTask.querySelector("p")
+              : null;
+
+            if (task === editTask.textContent) {
+              task = "changed";
+              console.log(editTask.textContent);
+              console.log(el.tasks);
+
+              // can you mutate an array while it is looping?
+
+              console.log(this.tasksData);
+            }
+          });
+        });
+      });
+    });
+  }
+
+  renderObjects() {}
+}
+
+const arrayTest = ["Hello", "Hi", "Hey"];
+arrayTest.forEach((el) => {
+  if (el === "Hey") {
+    el = "Yo";
+    console.log(arrayTest);
+  }
+});
