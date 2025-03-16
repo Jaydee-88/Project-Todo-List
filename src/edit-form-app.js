@@ -164,43 +164,56 @@ export class EditFormFix {
 
   editObjects() {
     const editBtns = document.querySelectorAll("#editBtn");
-    this.tasksData.forEach((el) => {
-      el.tasks.forEach((task) => {
-        editBtns.forEach((button) => {
-          button.addEventListener("click", (e) => {
-            const labelsForHeaders = button.closest(".project-info");
-            const labelForTitle = button.closest(".project-sub-title");
-            const labelForTask = button.closest("label");
 
-            const editTitle = labelForTitle
-              ? labelForTitle.querySelector("h3")
-              : null;
-            const editTask = labelForTask
-              ? labelForTask.querySelector("p")
-              : null;
+    editBtns.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const labelsForHeaders = button.closest(".project-info");
+        const labelForTitle = button.closest(".project-sub-title");
+        const labelForTask = button.closest("label");
+        const editTitle = labelForTitle
+          ? labelForTitle.querySelector("h3")
+          : null;
+        const editTask = labelForTask ? labelForTask.querySelector("p") : null;
 
-            if (task === editTask.textContent) {
-              task = "changed";
-              console.log(editTask.textContent);
-              console.log(el.tasks);
+        // show form
+        console.log("clicked");
 
-              // can you mutate an array while it is looping?
+        // Find the task to edit
+        if (editTask) {
+          this.tasksData.forEach((el) => {
+            const taskIndex = el.tasks.indexOf(editTask.textContent);
 
-              console.log(this.tasksData);
+            // If the task is found, update it. Once the button its press its index is 0
+            if (taskIndex !== -1) {
+              el.tasks[taskIndex] = "Learn SEO"; // Change the task to the new value
+              console.log(`Task changed to: ${el.tasks[taskIndex]}`);
+              console.log(this.tasksData); // Output the updated tasksData
+              // this.render();
             }
           });
-        });
+        }
       });
     });
   }
 
-  renderObjects() {}
+  renderAndSubmit() {
+    const rightScreen = document.querySelector("#display--screen");
+  }
+
+  createForm() {
+    const form = document.createElement("form");
+    form.classList.add("edit-form", "hidden");
+
+    const formElements = [
+      this.createInput("text", "Edit your task..."),
+      this.createButton("Submit"),
+    ];
+
+    formElements.forEach((element) => form.appendChild(element));
+    document.querySelector("#main-page").appendChild(form);
+
+    return form;
+  }
 }
 
-const arrayTest = ["Hello", "Hi", "Hey"];
-arrayTest.forEach((el) => {
-  if (el === "Hey") {
-    el = "Yo";
-    console.log(arrayTest);
-  }
-});
+//

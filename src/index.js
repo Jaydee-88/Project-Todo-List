@@ -4,11 +4,30 @@ import "./styles/right-screen.css";
 import "./styles/form-screen.css";
 import { RightUI } from "./todo-ui";
 
-new RightUI();
+// new RightUI();
 
 const mainData = [
   {
-    project: "Stuff to-do",
+    project: {
+      date: "Today",
+      title: "Default",
+      description:
+        "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
+    },
+    data: [
+      {
+        title: "Your Tasks",
+        tasks: ["Make 3 slides for SEO"],
+      },
+    ],
+  },
+  {
+    project: {
+      date: "Today",
+      title: "Stuff to Do",
+      description:
+        "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
+    },
     data: [
       {
         title: "Preparation for Powerpoint",
@@ -29,7 +48,12 @@ const mainData = [
     ],
   },
   {
-    project: "Learn Liquid Basics",
+    project: {
+      date: "Today",
+      title: "Learn Liquid Basics",
+      description:
+        "The description is here, try to find a way for users to edit this and make a button besides the title to edit.",
+    },
     data: [
       {
         title: "Learn Fundamentals",

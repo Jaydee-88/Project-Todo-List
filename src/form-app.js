@@ -8,7 +8,6 @@ export class FormDisplay {
 
     this.submitTask();
     this.renderForm();
-
   }
 
   submitTask() {

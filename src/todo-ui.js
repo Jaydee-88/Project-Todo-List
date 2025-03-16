@@ -2,7 +2,8 @@ import { FormDisplay } from "./form-app";
 import { EditForm, EditFormFix } from "./edit-form-app";
 
 class LeftUI {
-  constructor(dataTitle) {
+  constructor(data) {
+    this.data = data;
     this.leftNavScreen = document.querySelector("#nav--screen");
     this.headingLogo = document.createElement("h1");
     this.headingProjects = document.createElement("h1");
@@ -24,6 +25,11 @@ class LeftUI {
     this.leftUIcontents(this.arrayTodoTest);
   }
 
+  get dataExtracted() {
+    // If pressed return data here from the LEFTUI
+    return "picked data to be here";
+  }
+
   logoAndHeaders() {
     const newTaskButton = document.createElement("button");
     newTaskButton.setAttribute("data-custom", "addNewTask");
@@ -39,7 +45,7 @@ class LeftUI {
     this.headingLogo.classList.add("logo");
 
     this.leftNavScreen.appendChild(this.headingLogo);
-    this.leftNavScreen.appendChild(newTaskButton);
+    // this.leftNavScreen.appendChild(newTaskButton);
 
     this.headingProjects.textContent = "Projects";
     this.headingTeams.textContent = "Teams";
@@ -54,6 +60,7 @@ class LeftUI {
     this.leftNavScreen.appendChild(this.teamHolder);
   }
 
+  // Extract Projects here
   leftUIcontents(todosArray) {
     const listsOfTodosHolder = document.createElement("ul");
     listsOfTodosHolder.classList.add("projects-ul");
@@ -72,8 +79,8 @@ class LeftUI {
 }
 
 export class RightUI {
-  constructor(leftData, rightData) {
-    this.leftUI = new LeftUI(); // Composition: Use LeftUI inside RightUI
+  constructor(data) {
+    this.data = new LeftUI(data).dataExtracted; // Composition: Use LeftUI inside RightUI
     this.rightContentScreen = document.querySelector("#display--screen");
     this.projectSections = document.createElement("div");
     this.projectSections.setAttribute("data-custom", "project-task");
@@ -106,16 +113,30 @@ export class RightUI {
       },
     ];
 
-    this.renderHeader(this.renderHeaderDisplays(this.projectInformation));
-    this.renderProjectDisplay(this.titleTaskData);
+    this.render();
 
     // Form Related
     this.editButtons = new EditFormFix(
       this.projectInformation,
-      this.titleTaskData
+      this.titleTaskData,
+      this.render
     );
-    // this.renderForm(this.titleTaskData);
+    this.renderForm(this.titleTaskData);
+    this.test();
     // this.renderEditForm(this.projectInformation, this.titleTaskData);
+  }
+
+  test() {
+    console.log(this.data);
+  }
+
+  render() {
+    // Render header
+    const header = this.renderHeaderDisplays(this.projectInformation);
+    this.rightContentScreen.append(header);
+
+    // Render project display
+    this.renderProjectDisplay(this.titleTaskData);
   }
 
   renderHeaderDisplays(data) {
@@ -130,21 +151,26 @@ export class RightUI {
       "description--ui",
       data.description
     );
+    const addTaskButton = this.createElement(
+      "button",
+      "add-task--ui",
+      "Add Task"
+    );
+    addTaskButton.classList.add("add-task-button");
+    addTaskButton.setAttribute("data-custom", "addNewTask");
 
-    projectInformation.append(dateDisplay, titleAndButton, descriptionDisplay);
+    projectInformation.append(
+      dateDisplay,
+      titleAndButton,
+      descriptionDisplay,
+      addTaskButton
+    );
 
     return projectInformation;
   }
 
   renderHeader(div) {
     this.rightContentScreen.append(div);
-  }
-
-  createElement(tag, className, textContent) {
-    const element = document.createElement(tag);
-    if (className) element.classList.add(className);
-    if (textContent) element.textContent = textContent;
-    return element;
   }
 
   renderProjectDisplay(data) {
@@ -177,6 +203,13 @@ export class RightUI {
     this.rightContentScreen.appendChild(this.projectSections);
   }
 
+  createElement(tag, className, textContent) {
+    const element = document.createElement(tag);
+    if (className) element.classList.add(className);
+    if (textContent) element.textContent = textContent;
+    return element;
+  }
+
   createTaskLabel(task) {
     const label = document.createElement("label");
     const checkbox = this.createElement("input", "input--ui");
@@ -206,4 +239,55 @@ export class RightUI {
       data2
     );
   }
+}
+
+class NavBar {
+  renderHeader() {
+    // Create Logo
+    // Create NAV for buttons
+  }
+}
+
+class NewLeftUI {
+  // Create a button here base on the tasks. if its "Today" put it in the today group. if it is Complete put it in the complete group, etc. and render those tasks. they can check, delete and edit those task. 
+
+  displayLeftProjects() {
+    // display here the projects as tabs
+    console.log("Render Data using the NewRightUI");
+  }
+
+  displayAddProjectButton() {
+    // Add Project Button. push it onto the object data.
+    console.log("Display Add Project Button");
+  }
+}
+
+class NewRightUI extends NewLeftUI {
+  constructor(data) {
+    this.data = data;
+  }
+
+  renderTitle() {
+    console.log("Render Title");
+  }
+
+  renderDescription() {
+    console.log("Render Description");
+  }
+
+  renderTasks() {
+    console.log("Render Tasks");
+  }
+
+  displayAddTask() {
+    console.log("Display Add Task");
+  }
+}
+
+class RENDER {}
+
+class FilterButton {
+  // First Clear HTML then;
+  // filter the data then render it if button is pressed.
+  // if not just use normal render.
 }
