@@ -2,7 +2,9 @@ import "./styles/styles.css";
 import "./styles/left-screen.css";
 import "./styles/right-screen.css";
 import "./styles/form-screen.css";
+
 import { RightUI } from "./todo-ui";
+import { displayText } from "./logic";
 
 // new RightUI();
 
@@ -66,6 +68,8 @@ const mainData = [
     ],
   },
 ];
+
+console.log(displayText);
 
 // console.log(mainData[0].data);
 

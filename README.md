@@ -27,3 +27,9 @@ Keywords to add:
 - Use Function composition
 
 - Learn about the bind method - it binds the this keyword and invokes it later. its like a variable but you can call it. call meaning = runThis()
+
+
+
+16/03/2025
+- Display Projects as tabs in the 'database.json' file
+- the 'database.json' make sure that if one Project is clicked from the tabs, it will display its own tasks in the RightUI.

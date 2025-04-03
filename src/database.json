@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "projectName": "Default Project",
+    "information": "Always keep your to-do list in check, even the smallest task, organized with intention, can lead to big achievements.",
+    "tasks": [
+      {
+        "title": "Test the application",
+        "date": "2025-02-28",
+        "status": false,
+        "description": "Test application and check if it is working.",
+        "priority": "High",
+        "id": 1
+      },
+      {
+        "title": "Add a README file",
+        "date": "2025-03-01",
+        "status": false,
+        "description": "Create a README file with the project description.",
+        "priority": "Medium",
+        "id": 2
+      },
+      {
+        "title": "Add a LICENSE file",
+        "date": "2025-03-02",
+        "status": false,
+        "description": "Create a LICENSE file with the project license.",
+        "priority": "Low",
+        "id": 3
+      }
+    ]
+  }
+]
