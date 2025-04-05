@@ -1,14 +1,18 @@
-class Task {
+"use strict";
+
+export class Task {
   constructor(name, description, due, priority, completed) {
     this.name = name;
     this.description = description;
     this.due = due;
     this.priority = priority;
     this.completed = completed;
+    this.id = 0;
   }
 
   get data() {
     return {
+      id: this.id,
       name: this.name,
       description: this.description,
       due: this.due,
@@ -17,59 +21,25 @@ class Task {
     };
   }
 }
-
-const taskTest = new Task("test", "test", "test", "test", "test");
-console.log(taskTest.data);
-
-class TaskData {
-  constructor() {}
-}
-
-class TaskManager {
-  constructor(createTask, deleteTask, editTask) {
-    this.tasks = [];
+export class AddTask {
+  constructor(btn, task, data) {
+    this.btn = btn;
+    this.task = task;
+    this.data = data;
   }
 
-  createTask(task) {
-    this.tasks.push(task);
-  }
-
-  deleteTask(taskId) {
-    this.tasks = this.tasks.filter((task) => task.id !== taskId);
-  }
-
-  editTask(taskId, updatedTask) {
-    const task = this.tasks.find((task) => task.id === taskId);
-    if (task) {
-      Object.assign(task, updatedTask);
-    }
-  }
-
-  organizeTasks() {
-    // Logic to organize tasks into "Today", "Complete", etc.
-    return {
-      today: this.tasks.filter((task) => task.status === "Today"),
-      complete: this.tasks.filter((task) => task.status === "Complete"),
-    };
+  pushData() {
+    this.btn.addEventListener("click", () => {
+      if (this.data.at(-1).id === 0) {
+        this.task.id++;
+      } else if (this.data.at(-1).id) {
+        this.task.id++;
+      }
+      this.data.push(this.task);
+      console.log(this.data);
+    });
   }
 }
+export class EditTask {}
 
-function createTask() {}
-function deleteTask() {}
-function editTask() {}
-
-class ClassTest {
-  constructor(value, number) {
-    this.value = value;
-    this.number = number;
-  }
-
-  displayText() {
-    return `${this.value}`;
-  }
-
-  get text() {
-    return this.displayText();
-  }
-}
-export const displayText = new ClassTest("hello").text;
+// Div = id(task) then cascade
