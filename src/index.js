@@ -21,7 +21,7 @@ const mainData = [
         status: false,
         description: "Test application and check if it is working.",
         priority: "High",
-        id: 1,
+        id: "task-1",
       },
       {
         title: "Add a README file",
@@ -29,7 +29,7 @@ const mainData = [
         status: false,
         description: "Create a README file with the project description.",
         priority: "Medium",
-        id: 2,
+        id: "task-2",
       },
       {
         title: "Add a LICENSE file",
@@ -37,18 +37,23 @@ const mainData = [
         status: false,
         description: "Create a LICENSE file with the project license.",
         priority: "Low",
-        id: 3,
+        id: "task-3",
       },
     ],
   },
 ];
-console.log(mainData);
 
 const testTask = new Task("test", "test", "test", "test", "test").data;
-const buttonPressed = new AddTask(
+new AddTask(
   document.querySelector("#btn-test"),
   testTask,
   mainData[0].tasks
 ).pushData();
+
+function addTaskToData() {}
+
+document.querySelector("#btn-checker").addEventListener("click", () => {
+  console.log(mainData[0].tasks);
+});
 
 // put a parameter on the right side UI so the data will display accodingly. Make sure that the when project is seleted, the title is also projected
