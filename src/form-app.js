@@ -119,3 +119,97 @@ export class FormDisplay {
     });
   }
 }
+
+export class CreateForm {
+  constructor(clTask, data) {
+    this.task = clTask;
+    this.data = data;
+    this.form = this.createForm();
+  }
+
+  createForm() {
+    const rightScreen = document.querySelector("#display--screen");
+    const form = document.createElement("form");
+    form.classList.add("form");
+
+    const titleInput = this.createInput("text", "Title");
+    titleInput.id = "title-form";
+    const dateInput = this.createInput("date", "Date");
+    dateInput.id = "date-form";
+    const statusInput = this.createInput("checkbox", "Status");
+    statusInput.id = "status-form";
+    const descriptionInput = this.createInput("text", "Description");
+    descriptionInput.id = "description-form";
+    const priorityInput = this.createSelect();
+    priorityInput.id = "priority-form";
+
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Submit";
+
+    const testText = document.createElement("p");
+    testText.textContent = "Test Text";
+
+    form.append(
+      titleInput,
+      dateInput,
+      statusInput,
+      descriptionInput,
+      priorityInput,
+      submitButton
+    );
+
+    rightScreen.appendChild(form);
+    return form;
+  }
+
+  submitForm() {
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = this.form.querySelector("#title-form").value;
+      const date = this.form.querySelector("#date-form").value;
+      const status = this.form.querySelector("#status-form").checked;
+      const description = this.form.querySelector("#description-form").value;
+      const priority = this.form.querySelector("#priority-form").value;
+
+      const task = { title, date, status, description, priority };
+      this.data.push(task);
+      this.form.classList.add("hidden");
+
+      console.log(this.data);
+      return;
+    });
+  }
+
+  // Helpers
+  createInput(type, placeholder) {
+    const input = document.createElement("input");
+    input.type = type;
+    input.placeholder = placeholder;
+    // input.required = true;
+    return input;
+  }
+  createSelect() {
+    const select = document.createElement("select");
+    const options = ["Low", "Medium", "High"];
+
+    options.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = item.toLowerCase();
+      option.textContent = item;
+      select.appendChild(option);
+    });
+
+    return select;
+  }
+}
+
+export class AddTask extends CreateForm {
+  constructor(clTask, data) {
+    super(clTask, data);
+    this.form = this.createForm();
+    this.data = data;
+    this.submitForm();
+  }
+}

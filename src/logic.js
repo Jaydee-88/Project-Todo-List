@@ -1,11 +1,6 @@
 "use strict";
 
-//  title: "Test the application",
-//         date: "2025-02-28",
-//         status: false,
-//         description: "Test application and check if it is working.",
-//         priority: "High",
-//         id: 1,
+import { CreateForm } from "./form-app";
 
 export class Task {
   constructor(title, date, status, description, priority) {
@@ -28,6 +23,7 @@ export class Task {
     };
   }
 }
+
 export class AddTask {
   constructor(btn, task, data) {
     this.btn = btn;

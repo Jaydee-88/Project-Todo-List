@@ -4,7 +4,8 @@ import "./styles/right-screen.css";
 import "./styles/form-screen.css";
 
 import { RightUI } from "./todo-ui";
-import { displayText, Task, AddTask } from "./logic";
+import { displayText, Task } from "./logic";
+import { CreateForm, AddTask } from "./form-app";
 
 // new RightUI();
 
@@ -43,15 +44,18 @@ const mainData = [
   },
 ];
 
-const testTask = new Task("test", "test", "test", "test", "test").data;
-new AddTask(
-  document.querySelector("#btn-test"),
-  testTask,
-  mainData[0].tasks
-).pushData();
+const form = new CreateForm(Task, mainData[0].tasks);
+console.log(form);
 
-function addTaskToData() {}
+// Form and Task
+function addTaskManager(form, classFn) {
+  // const task = new Task().data;
+}
 
+// When button is pressed form should be displayed
+// After that, when the form is submitted, the data should be pushed to the mainData
+
+// Test-------------------
 document.querySelector("#btn-checker").addEventListener("click", () => {
   console.log(mainData[0].tasks);
 });
