@@ -44,13 +44,12 @@ const mainData = [
   },
 ];
 
-const form = new CreateForm(Task, mainData[0].tasks);
-console.log(form);
+const btnTest = document.querySelector("#btn-test");
+const dataFromTaskTest = mainData[0].tasks;
+const form = new AddTask(btnTest, dataFromTaskTest);
 
 // Form and Task
-function addTaskManager(form, classFn) {
-  // const task = new Task().data;
-}
+function addTaskManager(form, classFn) {}
 
 // When button is pressed form should be displayed
 // After that, when the form is submitted, the data should be pushed to the mainData

@@ -127,6 +127,7 @@ export class CreateForm {
     this.form = this.createForm();
   }
 
+  // Might need to change to addTaskForm. Need Form also for Projects Creation
   createForm() {
     const rightScreen = document.querySelector("#display--screen");
     const form = document.createElement("form");
@@ -160,26 +161,8 @@ export class CreateForm {
     );
 
     rightScreen.appendChild(form);
+    form.classList.add("hidden");
     return form;
-  }
-
-  submitForm() {
-    this.form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const title = this.form.querySelector("#title-form").value;
-      const date = this.form.querySelector("#date-form").value;
-      const status = this.form.querySelector("#status-form").checked;
-      const description = this.form.querySelector("#description-form").value;
-      const priority = this.form.querySelector("#priority-form").value;
-
-      const task = { title, date, status, description, priority };
-      this.data.push(task);
-      this.form.classList.add("hidden");
-
-      console.log(this.data);
-      return;
-    });
   }
 
   // Helpers
@@ -206,10 +189,44 @@ export class CreateForm {
 }
 
 export class AddTask extends CreateForm {
-  constructor(clTask, data) {
-    super(clTask, data);
-    this.form = this.createForm();
+  constructor(btn, data) {
+    super();
+    this.btn = btn;
     this.data = data;
+    this.showForm();
     this.submitForm();
   }
+
+  showForm() {
+    this.btn.addEventListener("click", () => {
+      this.form.classList.remove("hidden");
+    });
+  }
+
+  // Needs to be in another class to respect the SRP
+  submitForm() {
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = this.form.querySelector("#title-form").value;
+      const date = this.form.querySelector("#date-form").value;
+      const status = this.form.querySelector("#status-form").checked;
+      const description = this.form.querySelector("#description-form").value;
+      const priority = this.form.querySelector("#priority-form").value;
+      const id = this.data.length + 1;
+
+      const task = { title, date, status, description, priority, id };
+      this.data.push(task);
+
+      this.form.classList.add("hidden");
+    });
+  }
 }
+
+const addTaskData = (data) => ({
+  submit: function (btn) {
+    btn.addEventListener("click", () => {
+      // Values
+    });
+  },
+});
