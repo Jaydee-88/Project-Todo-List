@@ -5,9 +5,7 @@ import "./styles/form-screen.css";
 
 import { RightUI } from "./todo-ui";
 import { displayText, Task } from "./logic";
-import { CreateForm, AddTask } from "./form-app";
-
-// new RightUI();
+import { CreateForm, AddTask, AddProject } from "./form-app";
 
 const mainData = [
   {
@@ -42,21 +40,53 @@ const mainData = [
       },
     ],
   },
+  {
+    id: 2,
+    projectName: "Test Project",
+    information: "Play In moderate times. Don't forget your priorities ",
+    tasks: [
+      {
+        title: "Do Dailies in Wuthering Waves",
+        date: "2025-02-28",
+        status: true,
+        description: "Test application and check if it is working.",
+        priority: "High",
+        id: "task-1",
+      },
+      {
+        title: "Do Dailies in Genshin Impact",
+        date: "2025-03-01",
+        status: true,
+        description: "Create a README file with the project description.",
+        priority: "Low",
+        id: "task-2",
+      },
+      {
+        title: "Do Dailies in Honkai Star Rail",
+        date: "2025-03-02",
+        status: true,
+        description: "Create a LICENSE file with the project license.",
+        priority: "Low",
+        id: "task-3",
+      },
+    ],
+  },
 ];
 
 const btnTest = document.querySelector("#btn-test");
-const dataFromTaskTest = mainData[0].tasks;
+const dataFromTaskTest = mainData;
 const form = new AddTask(btnTest, dataFromTaskTest);
 
-// Form and Task
-function addTaskManager(form, classFn) {}
+const btnProject = document.querySelector("#btn-test-project");
+const projectForm = new AddProject(btnProject, mainData);
 
-// When button is pressed form should be displayed
-// After that, when the form is submitted, the data should be pushed to the mainData
+console.log(mainData);
+console.log(dataFromTaskTest);
 
 // Test-------------------
 document.querySelector("#btn-checker").addEventListener("click", () => {
-  console.log(mainData[0].tasks);
+  // console.log(mainData[0].tasks);
+  console.log(mainData);
 });
 
 // put a parameter on the right side UI so the data will display accodingly. Make sure that the when project is seleted, the title is also projected

@@ -124,11 +124,11 @@ export class CreateForm {
   constructor(clTask, data) {
     this.task = clTask;
     this.data = data;
-    this.form = this.createForm();
+    this.formProject = this.projectForm();
+    this.formTask = this.taskForm();
   }
 
-  // Might need to change to addTaskForm. Need Form also for Projects Creation
-  createForm() {
+  taskForm() {
     const rightScreen = document.querySelector("#display--screen");
     const form = document.createElement("form");
     form.classList.add("form");
@@ -165,6 +165,27 @@ export class CreateForm {
     return form;
   }
 
+  projectForm() {
+    const rightScreen = document.querySelector("#display--screen");
+    const form = document.createElement("form");
+    form.classList.add("form");
+
+    const projectInput = this.createInput("text", "Project Name");
+    projectInput.id = "projectName-form";
+    const informationInput = this.createInput("text", "Information");
+    informationInput.id = "information-form";
+
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Submit";
+
+    form.append(projectInput, informationInput, submitButton);
+    rightScreen.appendChild(form);
+
+    form.classList.add("hidden");
+    return form;
+  }
+
   // Helpers
   createInput(type, placeholder) {
     const input = document.createElement("input");
@@ -189,6 +210,41 @@ export class CreateForm {
 }
 
 export class AddTask extends CreateForm {
+  constructor(btn, data, idOfProject) {
+    super();
+    this.btn = btn;
+    this.data = data[0].tasks; // Needs to change. Number needs to be related to the project id
+    this.showForm();
+    this.submitForm();
+  }
+
+  showForm() {
+    this.btn.addEventListener("click", () => {
+      this.formTask.classList.remove("hidden");
+    });
+  }
+
+  submitForm() {
+    this.formTask.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = this.formTask.querySelector("#title-form").value;
+      const date = this.formTask.querySelector("#date-form").value;
+      const status = this.formTask.querySelector("#status-form").checked;
+      const description =
+        this.formTask.querySelector("#description-form").value;
+      const priority = this.formTask.querySelector("#priority-form").value;
+      const id = `task-${this.data.length + 1}`;
+
+      const task = { title, date, status, description, priority, id };
+      this.data.push(task);
+
+      this.formTask.classList.add("hidden");
+    });
+  }
+}
+
+export class AddProject extends CreateForm {
   constructor(btn, data) {
     super();
     this.btn = btn;
@@ -196,29 +252,27 @@ export class AddTask extends CreateForm {
     this.showForm();
     this.submitForm();
   }
-
   showForm() {
     this.btn.addEventListener("click", () => {
-      this.form.classList.remove("hidden");
+      this.formProject.classList.remove("hidden");
     });
   }
 
-  // Needs to be in another class to respect the SRP
   submitForm() {
-    this.form.addEventListener("submit", (e) => {
+    this.formProject.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const title = this.form.querySelector("#title-form").value;
-      const date = this.form.querySelector("#date-form").value;
-      const status = this.form.querySelector("#status-form").checked;
-      const description = this.form.querySelector("#description-form").value;
-      const priority = this.form.querySelector("#priority-form").value;
+      const projectName =
+        this.formProject.querySelector("#projectName-form").value;
+      const information =
+        this.formProject.querySelector("#information-form").value;
       const id = this.data.length + 1;
+      const tasks = [];
 
-      const task = { title, date, status, description, priority, id };
-      this.data.push(task);
+      const projectData = { projectName, id, information, tasks };
+      this.data.push(projectData);
 
-      this.form.classList.add("hidden");
+      this.formProject.classList.add("hidden");
     });
   }
 }
