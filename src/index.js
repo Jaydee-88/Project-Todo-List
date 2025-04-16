@@ -5,8 +5,9 @@ import "./styles/form-screen.css";
 
 import { RightUI } from "./todo-ui";
 import { displayText, Task } from "./logic";
-import { CreateForm, AddTask, AddProject } from "./form-app";
+import { AddTask, AddProject } from "./form-app";
 
+// To be moved as a database file
 const mainData = [
   {
     id: 1,
@@ -73,20 +74,35 @@ const mainData = [
   },
 ];
 
+let switchTarget = 0;
+
 const btnTest = document.querySelector("#btn-test");
 const dataFromTaskTest = mainData;
-const form = new AddTask(btnTest, dataFromTaskTest);
+const form = new AddTask(btnTest, dataFromTaskTest, switchTarget);
 
 const btnProject = document.querySelector("#btn-test-project");
 const projectForm = new AddProject(btnProject, mainData);
 
-console.log(mainData);
-console.log(dataFromTaskTest);
-
 // Test-------------------
+document.querySelector("#btn-checker").style.marginBottom = "50px";
 document.querySelector("#btn-checker").addEventListener("click", () => {
-  // console.log(mainData[0].tasks);
   console.log(mainData);
 });
 
-// put a parameter on the right side UI so the data will display accodingly. Make sure that the when project is seleted, the title is also projected
+// Project Display Test
+const rightScreen = document.querySelector("#display--screen");
+mainData.forEach((project) => {
+  const btnsDisplay = document.createElement("div");
+  btnsDisplay.classList.add("btns-project-test");
+
+  btnsDisplay.addEventListener("click", (el) => {
+    switchTarget = project.id - 1;
+    console.log(switchTarget);
+    console.log(project);
+  });
+
+  rightScreen.appendChild(btnsDisplay);
+});
+
+// Need to resest form to accept the changes of the forEach
+// need to know why form is duplicating

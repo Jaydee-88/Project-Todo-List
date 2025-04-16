@@ -209,41 +209,6 @@ export class CreateForm {
   }
 }
 
-export class AddTask extends CreateForm {
-  constructor(btn, data, idOfProject) {
-    super();
-    this.btn = btn;
-    this.data = data[0].tasks; // Needs to change. Number needs to be related to the project id
-    this.showForm();
-    this.submitForm();
-  }
-
-  showForm() {
-    this.btn.addEventListener("click", () => {
-      this.formTask.classList.remove("hidden");
-    });
-  }
-
-  submitForm() {
-    this.formTask.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const title = this.formTask.querySelector("#title-form").value;
-      const date = this.formTask.querySelector("#date-form").value;
-      const status = this.formTask.querySelector("#status-form").checked;
-      const description =
-        this.formTask.querySelector("#description-form").value;
-      const priority = this.formTask.querySelector("#priority-form").value;
-      const id = `task-${this.data.length + 1}`;
-
-      const task = { title, date, status, description, priority, id };
-      this.data.push(task);
-
-      this.formTask.classList.add("hidden");
-    });
-  }
-}
-
 export class AddProject extends CreateForm {
   constructor(btn, data) {
     super();
@@ -273,6 +238,41 @@ export class AddProject extends CreateForm {
       this.data.push(projectData);
 
       this.formProject.classList.add("hidden");
+    });
+  }
+}
+
+export class AddTask extends CreateForm {
+  constructor(btn, data, idOfProject) {
+    super();
+    this.btn = btn;
+    this.data = data[idOfProject].tasks; // Needs to change. Number needs to be the project id
+    this.showForm();
+    this.submitForm();
+  }
+
+  showForm() {
+    this.btn.addEventListener("click", () => {
+      this.formTask.classList.remove("hidden");
+    });
+  }
+
+  submitForm() {
+    this.formTask.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = this.formTask.querySelector("#title-form").value;
+      const date = this.formTask.querySelector("#date-form").value;
+      const status = this.formTask.querySelector("#status-form").checked;
+      const description =
+        this.formTask.querySelector("#description-form").value;
+      const priority = this.formTask.querySelector("#priority-form").value;
+      const id = `task-${this.data.length + 1}`;
+
+      const task = { title, date, status, description, priority, id };
+      this.data.push(task);
+
+      this.formTask.classList.add("hidden");
     });
   }
 }

@@ -24,3 +24,11 @@
 .hidden {
   display: none;
 }
+
+.btns-project-test {
+  width: 100%;
+  height: 20px;
+  background-color: red;
+  cursor: pointer;
+  margin: 0.5rem 0;
+}

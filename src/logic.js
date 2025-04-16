@@ -1,52 +1,10 @@
 "use strict";
 
 import { CreateForm } from "./form-app";
+import { AddTask, AddProject } from "./form-app";
 
-export class Task {
-  constructor(title, date, status, description, priority) {
-    this.title = title;
-    this.date = date;
-    this.status = status;
-    this.description = description;
-    this.priority = priority;
-    this.id = 0;
-  }
+class ProjectManager {}
 
-  get data() {
-    return {
-      id: this.id,
-      title: this.title,
-      date: this.date,
-      status: this.status,
-      description: this.description,
-      priority: this.priority,
-    };
-  }
-}
-
-export class AddTask {
-  constructor(btn, task, data) {
-    this.btn = btn;
-    this.task = task;
-    this.data = data;
-  }
-
-  pushData() {
-    this.btn.addEventListener("click", () => {
-      const latestCounter = this.data.at(-1).id;
-      // console.log(this.data.length, this.data);
-
-      // if the task is latest, push data and update task id
-
-      if (this.data.at(-1).id === latestCounter) {
-        this.task.id++;
-      }
-
-      console.log(this.task);
-      return this.data.at(-1);
-    });
-  }
-}
 export class EditTask {
   constructor(btn, task, data) {
     this.btn = btn;
@@ -62,8 +20,13 @@ export class EditTask {
   }
 }
 
-// Div = id(task) then cascade
+// Try to use composition as much as possible
 
-const testObject = {
-  id: 1,
-};
+// IF Project with ID 1 is clicked, the tasks of it should be displayed.
+// the add Task button should only add tasks base on what project is clicked.
+
+// try find method
+// try === method
+// use a switcher or let to change the variable base on ID (Currently using)
+
+// need to solve minor bug as why does the form duplicate.
