@@ -128,7 +128,9 @@ export class CreateForm {
 
   taskForm() {
     const rightScreen = document.querySelector("#display--screen");
+    const formHolder = document.querySelector("#forms");
     const form = document.createElement("form");
+    formHolder.innerHTML = "";
     form.classList.add("form");
 
     const titleInput = this.createInput("text", "Title");
@@ -158,14 +160,17 @@ export class CreateForm {
       submitButton
     );
 
-    rightScreen.appendChild(form);
+    formHolder.appendChild(form);
+    rightScreen.appendChild(formHolder);
     form.classList.add("hidden");
     return form;
   }
 
   projectForm() {
     const rightScreen = document.querySelector("#display--screen");
+    const formHolder = document.querySelector("#forms");
     const form = document.createElement("form");
+    formHolder.innerHTML = "";
     form.classList.add("form");
 
     const projectInput = this.createInput("text", "Project Name");
@@ -178,7 +183,9 @@ export class CreateForm {
     submitButton.textContent = "Submit";
 
     form.append(projectInput, informationInput, submitButton);
-    rightScreen.appendChild(form);
+
+    formHolder.appendChild(form);
+    rightScreen.appendChild(formHolder);
 
     form.classList.add("hidden");
     return form;
@@ -266,7 +273,7 @@ export class AddTask extends CreateForm {
     this.formTask.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // console.log(this.data);
+      console.log(this.data);
 
       const title = this.formTask.querySelector("#title-form").value;
       const date = this.formTask.querySelector("#date-form").value;
@@ -289,7 +296,7 @@ export class AddTask extends CreateForm {
   }
 
   set dataId(id) {
-    // this.data = this.data[id].tasks;
+    this.data = this.data[id].tasks;
   }
 }
 

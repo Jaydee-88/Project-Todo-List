@@ -75,17 +75,12 @@ export const mainData = [
   },
 ];
 
-let switchTarget = 0;
-
 const btnProject = document.querySelector("#btn-test-project");
 const projectForm = new AddProject(btnProject, mainData);
 
 const btnTest = document.querySelector("#btn-test");
-const form = new AddTask(btnTest, mainData, switchTarget);
-btnTest.addEventListener("click", () => {
-  form.getForm;
-});
 
+let switchTarget = 0;
 // Project Display Test
 const rightScreen = document.querySelector("#display--screen");
 mainData.forEach((project) => {
@@ -94,13 +89,16 @@ mainData.forEach((project) => {
 
   btnsDisplay.addEventListener("click", (el) => {
     switchTarget = project.id - 1;
-    console.log(switchTarget);
-    console.log(project);
-    // form.dataId = switchTarget;
+    console.log(switchTarget, project);
+
+    const form = new AddTask(btnTest, mainData, switchTarget);
+    btnTest.addEventListener("click", () => {
+      form.getForm;
+    });
     // form.getForm;
   });
+
   rightScreen.appendChild(btnsDisplay);
 });
 
-// Need to RESET form to accept the changes of the forEach
-// FIX DUPLICATE
+// NEED TO FIX ADDING PROJECT FORM
