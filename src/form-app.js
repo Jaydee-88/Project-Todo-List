@@ -124,8 +124,6 @@ export class CreateForm {
   constructor(clTask, data) {
     this.task = clTask;
     this.data = data;
-    this.formProject = this.projectForm();
-    this.formTask = this.taskForm();
   }
 
   taskForm() {
@@ -214,6 +212,7 @@ export class AddProject extends CreateForm {
     super();
     this.btn = btn;
     this.data = data;
+    this.formProject = this.projectForm();
     this.showForm();
     this.submitForm();
   }
@@ -240,6 +239,12 @@ export class AddProject extends CreateForm {
       this.formProject.classList.add("hidden");
     });
   }
+
+  get getForm() {
+    // display form
+    this.formProject.classList.remove("hidden");
+    this.submitForm();
+  }
 }
 
 export class AddTask extends CreateForm {
@@ -247,7 +252,7 @@ export class AddTask extends CreateForm {
     super();
     this.btn = btn;
     this.data = data[idOfProject].tasks; // Needs to change. Number needs to be the project id
-    this.showForm();
+    this.formTask = this.taskForm();
     this.submitForm();
   }
 
@@ -260,6 +265,8 @@ export class AddTask extends CreateForm {
   submitForm() {
     this.formTask.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      // console.log(this.data);
 
       const title = this.formTask.querySelector("#title-form").value;
       const date = this.formTask.querySelector("#date-form").value;
@@ -275,6 +282,15 @@ export class AddTask extends CreateForm {
       this.formTask.classList.add("hidden");
     });
   }
+
+  get getForm() {
+    // display form
+    this.formTask.classList.remove("hidden");
+  }
+
+  set dataId(id) {
+    // this.data = this.data[id].tasks;
+  }
 }
 
 const addTaskData = (data) => ({
@@ -284,3 +300,5 @@ const addTaskData = (data) => ({
     });
   },
 });
+
+// Try to put the form in the child.

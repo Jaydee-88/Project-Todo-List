@@ -6,9 +6,10 @@ import "./styles/form-screen.css";
 import { RightUI } from "./todo-ui";
 import { displayText, Task } from "./logic";
 import { AddTask, AddProject } from "./form-app";
+import { editButton } from "./helper";
 
 // To be moved as a database file
-const mainData = [
+export const mainData = [
   {
     id: 1,
     projectName: "Default Project",
@@ -76,17 +77,13 @@ const mainData = [
 
 let switchTarget = 0;
 
-const btnTest = document.querySelector("#btn-test");
-const dataFromTaskTest = mainData;
-const form = new AddTask(btnTest, dataFromTaskTest, switchTarget);
-
 const btnProject = document.querySelector("#btn-test-project");
 const projectForm = new AddProject(btnProject, mainData);
 
-// Test-------------------
-document.querySelector("#btn-checker").style.marginBottom = "50px";
-document.querySelector("#btn-checker").addEventListener("click", () => {
-  console.log(mainData);
+const btnTest = document.querySelector("#btn-test");
+const form = new AddTask(btnTest, mainData, switchTarget);
+btnTest.addEventListener("click", () => {
+  form.getForm;
 });
 
 // Project Display Test
@@ -99,10 +96,11 @@ mainData.forEach((project) => {
     switchTarget = project.id - 1;
     console.log(switchTarget);
     console.log(project);
+    // form.dataId = switchTarget;
+    // form.getForm;
   });
-
   rightScreen.appendChild(btnsDisplay);
 });
 
-// Need to resest form to accept the changes of the forEach
-// need to know why form is duplicating
+// Need to RESET form to accept the changes of the forEach
+// FIX DUPLICATE

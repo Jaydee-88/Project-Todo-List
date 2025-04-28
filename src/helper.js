@@ -1,3 +1,5 @@
+import { mainData } from ".";
+
 export function createElement(tag, className, textContent) {
   const element = document.createElement(tag);
   if (className) element.classList.add(className);
@@ -23,4 +25,8 @@ export function editButton() {
   return editBtn;
 }
 
-// Test and make a dialogue
+// STYLES
+document.querySelector("#btn-checker").style.marginBottom = "50px";
+document.querySelector("#btn-checker").addEventListener("click", () => {
+  console.log(mainData);
+});
